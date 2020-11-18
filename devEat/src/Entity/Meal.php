@@ -37,6 +37,12 @@ class Meal
      */
     private $Note;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Restaurant::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Restaurant;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +92,18 @@ class Meal
     public function setNote(?int $Note): self
     {
         $this->Note = $Note;
+
+        return $this;
+    }
+
+    public function getRestaurant(): ?Restaurant
+    {
+        return $this->Restaurant;
+    }
+
+    public function setRestaurant(?Restaurant $Restaurant): self
+    {
+        $this->Restaurant = $Restaurant;
 
         return $this;
     }
