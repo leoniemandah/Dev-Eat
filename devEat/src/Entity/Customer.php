@@ -47,6 +47,12 @@ class Customer
      */
     private $Address;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Admin::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $admin;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,6 +126,18 @@ class Customer
     public function setAddress(string $Address): self
     {
         $this->Address = $Address;
+
+        return $this;
+    }
+
+    public function getAdmin(): ?Admin
+    {
+        return $this->admin;
+    }
+
+    public function setAdmin(?Admin $admin): self
+    {
+        $this->admin = $admin;
 
         return $this;
     }
