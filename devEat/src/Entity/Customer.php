@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CustomerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,6 +54,16 @@ class Customer
      * @ORM\JoinColumn(nullable=false)
      */
     private $admin;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Restaurant::class)
+     */
+    private $Restaurant;
+
+    public function __construct()
+    {
+        $this->Restaurant = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,6 +150,30 @@ class Customer
     public function setAdmin(?Admin $admin): self
     {
         $this->admin = $admin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Restaurant[]
+     */
+    public function getRestaurant(): Collection
+    {
+        return $this->Restaurant;
+    }
+
+    public function addRestaurant(Restaurant $restaurant): self
+    {
+        if (!$this->Restaurant->contains($restaurant)) {
+            $this->Restaurant[] = $restaurant;
+        }
+
+        return $this;
+    }
+
+    public function removeRestaurant(Restaurant $restaurant): self
+    {
+        $this->Restaurant->removeElement($restaurant);
 
         return $this;
     }

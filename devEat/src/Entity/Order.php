@@ -50,9 +50,15 @@ class Order
      */
     private $Customer;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Meal::class)
+     */
+    private $Meal;
+
     public function __construct()
     {
         $this->Customer = new ArrayCollection();
+        $this->Meal = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -140,6 +146,30 @@ class Order
     public function removeCustomer(customer $customer): self
     {
         $this->Customer->removeElement($customer);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Meal[]
+     */
+    public function getMeal(): Collection
+    {
+        return $this->Meal;
+    }
+
+    public function addMeal(Meal $meal): self
+    {
+        if (!$this->Meal->contains($meal)) {
+            $this->Meal[] = $meal;
+        }
+
+        return $this;
+    }
+
+    public function removeMeal(Meal $meal): self
+    {
+        $this->Meal->removeElement($meal);
 
         return $this;
     }
