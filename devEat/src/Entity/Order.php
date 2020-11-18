@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OrderRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,16 @@ class Order
      * @ORM\Column(type="boolean")
      */
     private $Status;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=customer::class)
+     */
+    private $Customer;
+
+    public function __construct()
+    {
+        $this->Customer = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +116,30 @@ class Order
     public function setStatus(bool $Status): self
     {
         $this->Status = $Status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|customer[]
+     */
+    public function getCustomer(): Collection
+    {
+        return $this->Customer;
+    }
+
+    public function addCustomer(customer $customer): self
+    {
+        if (!$this->Customer->contains($customer)) {
+            $this->Customer[] = $customer;
+        }
+
+        return $this;
+    }
+
+    public function removeCustomer(customer $customer): self
+    {
+        $this->Customer->removeElement($customer);
 
         return $this;
     }
