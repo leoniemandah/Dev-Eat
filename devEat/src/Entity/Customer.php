@@ -6,11 +6,12 @@ use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=CustomerRepository::class)
  */
-class Customer
+class Customer implements UserInterface
 {
     /**
      * @ORM\Id
@@ -18,6 +19,22 @@ class Customer
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -30,17 +47,7 @@ class Customer
     private $LastName;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Password;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Email;
-
-    /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $Solde;
 
@@ -50,24 +57,103 @@ class Customer
     private $Address;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Admin::class)
+     * @ORM\ManyToOne(targetEntity=Admin::class, inversedBy="customers")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $admin;
+    private $Admin;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Restaurant::class)
+     * @ORM\ManyToMany(targetEntity=Order::class, mappedBy="CustomerOrder")
      */
-    private $Restaurant;
+    private $orders;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Restaurant::class, mappedBy="CustomerRestaurant")
+     */
+    private $restaurants;
 
     public function __construct()
     {
-        $this->Restaurant = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+        $this->restaurants = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getFirstName(): ?string
@@ -94,36 +180,12 @@ class Customer
         return $this;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->Password;
-    }
-
-    public function setPassword(string $Password): self
-    {
-        $this->Password = $Password;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->Email;
-    }
-
-    public function setEmail(string $Email): self
-    {
-        $this->Email = $Email;
-
-        return $this;
-    }
-
-    public function getSolde(): ?int
+    public function getSolde(): ?float
     {
         return $this->Solde;
     }
 
-    public function setSolde(int $Solde): self
+    public function setSolde(float $Solde): self
     {
         $this->Solde = $Solde;
 
@@ -144,12 +206,39 @@ class Customer
 
     public function getAdmin(): ?Admin
     {
-        return $this->admin;
+        return $this->Admin;
     }
 
-    public function setAdmin(?Admin $admin): self
+    public function setAdmin(?Admin $Admin): self
     {
-        $this->admin = $admin;
+        $this->Admin = $Admin;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->addCustomerOrder($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->removeElement($order)) {
+            $order->removeCustomerOrder($this);
+        }
 
         return $this;
     }
@@ -157,15 +246,16 @@ class Customer
     /**
      * @return Collection|Restaurant[]
      */
-    public function getRestaurant(): Collection
+    public function getRestaurants(): Collection
     {
-        return $this->Restaurant;
+        return $this->restaurants;
     }
 
     public function addRestaurant(Restaurant $restaurant): self
     {
-        if (!$this->Restaurant->contains($restaurant)) {
-            $this->Restaurant[] = $restaurant;
+        if (!$this->restaurants->contains($restaurant)) {
+            $this->restaurants[] = $restaurant;
+            $restaurant->addCustomerRestaurant($this);
         }
 
         return $this;
@@ -173,7 +263,9 @@ class Customer
 
     public function removeRestaurant(Restaurant $restaurant): self
     {
-        $this->Restaurant->removeElement($restaurant);
+        if ($this->restaurants->removeElement($restaurant)) {
+            $restaurant->removeCustomerRestaurant($this);
+        }
 
         return $this;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MealRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -28,20 +30,29 @@ class Meal
     private $Picture;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $Price;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $Note;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Restaurant::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="meals")
      */
     private $Restaurant;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Order::class, inversedBy="meals")
+     */
+    private $OrderMeal;
+
+    public function __construct()
+    {
+        $this->OrderMeal = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -72,12 +83,12 @@ class Meal
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): ?float
     {
         return $this->Price;
     }
 
-    public function setPrice(int $Price): self
+    public function setPrice(float $Price): self
     {
         $this->Price = $Price;
 
@@ -89,7 +100,7 @@ class Meal
         return $this->Note;
     }
 
-    public function setNote(?int $Note): self
+    public function setNote(int $Note): self
     {
         $this->Note = $Note;
 
@@ -104,6 +115,30 @@ class Meal
     public function setRestaurant(?Restaurant $Restaurant): self
     {
         $this->Restaurant = $Restaurant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrderMeal(): Collection
+    {
+        return $this->OrderMeal;
+    }
+
+    public function addOrderMeal(Order $orderMeal): self
+    {
+        if (!$this->OrderMeal->contains($orderMeal)) {
+            $this->OrderMeal[] = $orderMeal;
+        }
+
+        return $this;
+    }
+
+    public function removeOrderMeal(Order $orderMeal): self
+    {
+        $this->OrderMeal->removeElement($orderMeal);
 
         return $this;
     }

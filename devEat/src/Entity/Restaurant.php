@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\RestaurantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=RestaurantRepository::class)
  */
-class Restaurant
+class Restaurant implements UserInterface
 {
     /**
      * @ORM\Id
@@ -16,6 +19,22 @@ class Restaurant
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -33,29 +52,107 @@ class Restaurant
     private $Address;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Password;
-
-    /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $Income;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Admin::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity=Admin::class, inversedBy="restaurants")
      */
     private $Admin;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToMany(targetEntity=Meal::class, mappedBy="Restaurant")
      */
-    private $email;
+    private $meals;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Customer::class, inversedBy="restaurants")
+     */
+    private $CustomerRestaurant;
+
+    public function __construct()
+    {
+        $this->meals = new ArrayCollection();
+        $this->CustomerRestaurant = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getName(): ?string
@@ -94,24 +191,12 @@ class Restaurant
         return $this;
     }
 
-    public function getPassword(): ?string
-    {
-        return $this->Password;
-    }
-
-    public function setPassword(string $Password): self
-    {
-        $this->Password = $Password;
-
-        return $this;
-    }
-
-    public function getIncome(): ?int
+    public function getIncome(): ?float
     {
         return $this->Income;
     }
 
-    public function setIncome(int $Income): self
+    public function setIncome(float $Income): self
     {
         $this->Income = $Income;
 
@@ -130,14 +215,56 @@ class Restaurant
         return $this;
     }
 
-    public function getEmail(): ?string
+    /**
+     * @return Collection|Meal[]
+     */
+    public function getMeals(): Collection
     {
-        return $this->email;
+        return $this->meals;
     }
 
-    public function setEmail(string $email): self
+    public function addMeal(Meal $meal): self
     {
-        $this->email = $email;
+        if (!$this->meals->contains($meal)) {
+            $this->meals[] = $meal;
+            $meal->setRestaurant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMeal(Meal $meal): self
+    {
+        if ($this->meals->removeElement($meal)) {
+            // set the owning side to null (unless already changed)
+            if ($meal->getRestaurant() === $this) {
+                $meal->setRestaurant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Customer[]
+     */
+    public function getCustomerRestaurant(): Collection
+    {
+        return $this->CustomerRestaurant;
+    }
+
+    public function addCustomerRestaurant(Customer $customerRestaurant): self
+    {
+        if (!$this->CustomerRestaurant->contains($customerRestaurant)) {
+            $this->CustomerRestaurant[] = $customerRestaurant;
+        }
+
+        return $this;
+    }
+
+    public function removeCustomerRestaurant(Customer $customerRestaurant): self
+    {
+        $this->CustomerRestaurant->removeElement($customerRestaurant);
 
         return $this;
     }

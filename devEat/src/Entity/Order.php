@@ -36,7 +36,7 @@ class Order
     private $NbrMeal;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $Price;
 
@@ -46,19 +46,19 @@ class Order
     private $Status;
 
     /**
-     * @ORM\ManyToMany(targetEntity=customer::class)
+     * @ORM\ManyToMany(targetEntity=Customer::class, inversedBy="orders")
      */
-    private $Customer;
+    private $CustomerOrder;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Meal::class)
+     * @ORM\ManyToMany(targetEntity=Meal::class, mappedBy="OrderMeal")
      */
-    private $Meal;
+    private $meals;
 
     public function __construct()
     {
-        $this->Customer = new ArrayCollection();
-        $this->Meal = new ArrayCollection();
+        $this->CustomerOrder = new ArrayCollection();
+        $this->meals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -102,12 +102,12 @@ class Order
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): ?float
     {
         return $this->Price;
     }
 
-    public function setPrice(int $Price): self
+    public function setPrice(float $Price): self
     {
         $this->Price = $Price;
 
@@ -127,25 +127,25 @@ class Order
     }
 
     /**
-     * @return Collection|customer[]
+     * @return Collection|Customer[]
      */
-    public function getCustomer(): Collection
+    public function getCustomerOrder(): Collection
     {
-        return $this->Customer;
+        return $this->CustomerOrder;
     }
 
-    public function addCustomer(customer $customer): self
+    public function addCustomerOrder(Customer $customerOrder): self
     {
-        if (!$this->Customer->contains($customer)) {
-            $this->Customer[] = $customer;
+        if (!$this->CustomerOrder->contains($customerOrder)) {
+            $this->CustomerOrder[] = $customerOrder;
         }
 
         return $this;
     }
 
-    public function removeCustomer(customer $customer): self
+    public function removeCustomerOrder(Customer $customerOrder): self
     {
-        $this->Customer->removeElement($customer);
+        $this->CustomerOrder->removeElement($customerOrder);
 
         return $this;
     }
@@ -153,15 +153,16 @@ class Order
     /**
      * @return Collection|Meal[]
      */
-    public function getMeal(): Collection
+    public function getMeals(): Collection
     {
-        return $this->Meal;
+        return $this->meals;
     }
 
     public function addMeal(Meal $meal): self
     {
-        if (!$this->Meal->contains($meal)) {
-            $this->Meal[] = $meal;
+        if (!$this->meals->contains($meal)) {
+            $this->meals[] = $meal;
+            $meal->addOrderMeal($this);
         }
 
         return $this;
@@ -169,7 +170,9 @@ class Order
 
     public function removeMeal(Meal $meal): self
     {
-        $this->Meal->removeElement($meal);
+        if ($this->meals->removeElement($meal)) {
+            $meal->removeOrderMeal($this);
+        }
 
         return $this;
     }
