@@ -1,20 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DevEatController!{% endblock %}
+{% block title %}Acceuil!
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<!-- Grid row -->
+	<div
+		class="row">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Documents/Deveat/Dev-Eat/devEat/src/Controller/DevEatController.php'|file_link(0) }}">src/Controller/DevEatController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Documents/Deveat/Dev-Eat/devEat/templates/dev_eat/index.html.twig'|file_link(0) }}">templates/dev_eat/index.html.twig</a></code></li>
-    </ul>
-</div>
+		<!-- Grid column -->
+		<div class="col-md-12 mb-12">
+
+			<img src="https://www.mycuisine.com/wp-content/uploads/2018/12/burger-rossini-768x432.jpg" class="img-fluid z-depth-1" alt="Responsive image">
+
+		</div>
+		<!-- Grid column -->
+
+	</div>
+	<!-- Grid row -->
+	<center>
+		<h1>Nos Spécialitées</h1>
+	</center>
+
+	<div class="div-categoryContainer">
+		<article>
+
+			<p style="float:left"><img src="https://www.mycuisine.com/wp-content/uploads/2018/12/burger-rossini-768x432.jpg" class=""></p>
+			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+			<center>
+				<button class="favorite styled" type="button">
+					Add to favorites
+				</button>
+			</center>
+			<div style="clear:both"></div>
+		</article><br/>
+
+		<article>
+
+			<p style="float:right"><img src="https://media.istockphoto.com/photos/chinese-food-blank-background-picture-id545286388?k=6&m=545286388&s=612x612&w=0&h=hfqhFja1j8UhcydHJyBzjtzkTdXpooxOzAAqhJuM74o=" class=""></p>
+			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <center>
+				<button class="favorite styled" type="button">
+					Add to favorites
+				</button>
+			</center>
+			<div style="clear:both"></div>
+		</article><br/>
+
+		<article>
+
+			<p style="float:left"><img src="https://fac.img.pmdstatic.net/fit/http.3A.2F.2Fprd2-bone-image.2Es3-website-eu-west-1.2Eamazonaws.2Ecom.2Ffac.2F2018.2F07.2F30.2F6aaa4088-b316-4160-a97d-74ec7ca71b07.2Ejpeg/750x562/quality/80/crop-from/center/cr/wqkgVGhpbmtzdG9jay9HZXR0eSBJbWFnZXMgLyBGZW1tZSBBY3R1ZWxsZQ%3D%3D/pizza-royale.jpeg" class=""></p>
+			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <center>
+				<button class="favorite styled" type="button">
+					Add to favorites
+				</button>
+			</center>
+			<div style="clear:both"></div>
+		</article><br/>
+
+	</div>
+
+
 {% endblock %}
