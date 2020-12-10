@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\AdminRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=AdminRepository::class)
+ * @ORM\Entity(repositoryClass=UserRepository::class)
  */
-class Admin implements UserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -37,24 +37,38 @@ class Admin implements UserInterface
     private $password;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $FirstName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $LastName;
+
+    /**
      * @ORM\Column(type="float")
      */
-    private $Income;
+    private $solde;
 
     /**
-     * @ORM\OneToMany(targetEntity=Customer::class, mappedBy="Admin")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $customers;
+    private $Address;
 
     /**
-     * @ORM\OneToMany(targetEntity=Restaurant::class, mappedBy="Admin")
+     * @ORM\OneToOne(targetEntity=Restaurant::class, mappedBy="User", cascade={"persist", "remove"})
      */
-    private $restaurants;
+    private $restaurant;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="User")
+     */
+    private $orders;
 
     public function __construct()
     {
-        $this->customers = new ArrayCollection();
-        $this->restaurants = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,72 +149,96 @@ class Admin implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getIncome(): ?float
+    public function getFirstName(): ?string
     {
-        return $this->Income;
+        return $this->FirstName;
     }
 
-    public function setIncome(float $Income): self
+    public function setFirstName(?string $FirstName): self
     {
-        $this->Income = $Income;
+        $this->FirstName = $FirstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->LastName;
+    }
+
+    public function setLastName(?string $LastName): self
+    {
+        $this->LastName = $LastName;
+
+        return $this;
+    }
+
+    public function getSolde(): ?float
+    {
+        return $this->solde;
+    }
+
+    public function setSolde(float $solde): self
+    {
+        $this->solde = $solde;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->Address;
+    }
+
+    public function setAddress(?string $Address): self
+    {
+        $this->Address = $Address;
+
+        return $this;
+    }
+
+    public function getRestaurant(): ?Restaurant
+    {
+        return $this->restaurant;
+    }
+
+    public function setRestaurant(?Restaurant $restaurant): self
+    {
+        $this->restaurant = $restaurant;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newUser = null === $restaurant ? null : $this;
+        if ($restaurant->getUser() !== $newUser) {
+            $restaurant->setUser($newUser);
+        }
 
         return $this;
     }
 
     /**
-     * @return Collection|Customer[]
+     * @return Collection|Order[]
      */
-    public function getCustomers(): Collection
+    public function getOrders(): Collection
     {
-        return $this->customers;
+        return $this->orders;
     }
 
-    public function addCustomer(Customer $customer): self
+    public function addOrder(Order $order): self
     {
-        if (!$this->customers->contains($customer)) {
-            $this->customers[] = $customer;
-            $customer->setAdmin($this);
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeCustomer(Customer $customer): self
+    public function removeOrder(Order $order): self
     {
-        if ($this->customers->removeElement($customer)) {
+        if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
-            if ($customer->getAdmin() === $this) {
-                $customer->setAdmin(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Restaurant[]
-     */
-    public function getRestaurants(): Collection
-    {
-        return $this->restaurants;
-    }
-
-    public function addRestaurant(Restaurant $restaurant): self
-    {
-        if (!$this->restaurants->contains($restaurant)) {
-            $this->restaurants[] = $restaurant;
-            $restaurant->setAdmin($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRestaurant(Restaurant $restaurant): self
-    {
-        if ($this->restaurants->removeElement($restaurant)) {
-            // set the owning side to null (unless already changed)
-            if ($restaurant->getAdmin() === $this) {
-                $restaurant->setAdmin(null);
+            if ($order->getUser() === $this) {
+                $order->setUser(null);
             }
         }
 

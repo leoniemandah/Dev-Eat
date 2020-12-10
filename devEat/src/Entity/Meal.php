@@ -45,13 +45,13 @@ class Meal
     private $Restaurant;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Order::class, inversedBy="meals")
+     * @ORM\ManyToMany(targetEntity=Order::class, mappedBy="Meal")
      */
-    private $OrderMeal;
+    private $orders;
 
     public function __construct()
     {
-        $this->OrderMeal = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,23 +122,26 @@ class Meal
     /**
      * @return Collection|Order[]
      */
-    public function getOrderMeal(): Collection
+    public function getOrders(): Collection
     {
-        return $this->OrderMeal;
+        return $this->orders;
     }
 
-    public function addOrderMeal(Order $orderMeal): self
+    public function addOrder(Order $order): self
     {
-        if (!$this->OrderMeal->contains($orderMeal)) {
-            $this->OrderMeal[] = $orderMeal;
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->addMeal($this);
         }
 
         return $this;
     }
 
-    public function removeOrderMeal(Order $orderMeal): self
+    public function removeOrder(Order $order): self
     {
-        $this->OrderMeal->removeElement($orderMeal);
+        if ($this->orders->removeElement($order)) {
+            $order->removeMeal($this);
+        }
 
         return $this;
     }

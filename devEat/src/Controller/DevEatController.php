@@ -11,6 +11,7 @@ class DevEatController extends AbstractController
     /**
      * @Route("/dev/eat", name="dev_eat")
      */
+    
     public function index(): Response
     {
         return $this->render('dev_eat/index.html.twig', [
