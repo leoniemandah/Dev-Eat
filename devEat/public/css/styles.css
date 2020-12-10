@@ -1,0 +1,49 @@
+footer {
+    background-color: #CA5F02;
+    color: white;
+}
+
+nav  {
+    background-color:#CA5F02 !important;
+
+}
+
+
+
+
+.div-categoryContainer{
+    padding: 10px;
+}
+ 
+.nav-item {
+    font-family: 'Times New Roman', Times, serif;
+   
+    
+   
+}
+
+.nav-link{
+    color: white;
+    
+}
+
+.navbar-brand {
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+}
+
+.list-unstyled {
+    font-family: 'Times New Roman', Times, serif;
+   
+}
+
+footer ul li a {
+    color: white;
+
+}
+
+.footer-copyright a {
+    font-family: 'Times New Roman', Times, serif;
+    color: white;
+
+}
