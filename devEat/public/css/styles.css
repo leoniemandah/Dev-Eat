@@ -9,6 +9,10 @@ display:flex;
 flex-wrap: wrap;
 }
 
+#top a img {
+    width: 50%;
+}
+
 nav a{
     color: white;
    
@@ -18,6 +22,7 @@ nav a{
 
 footer {
     background-color: #585455;
+    height: 20%;
 }
 
 footer div a {
@@ -26,6 +31,10 @@ footer div a {
 
 .footer-copyright {
     color: white;
+}
+
+footer a img {
+    width: 50%;
 }
 
 img {
