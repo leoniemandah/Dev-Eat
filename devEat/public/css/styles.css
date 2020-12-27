@@ -1,49 +1,123 @@
+#top{
+    background-color: #585455;
+    width: 100%;
+    padding-top:30px ;
+    padding-bottom: 30px;
+    align-items: center;
+    justify-content: space-around;
+display:flex;
+flex-wrap: wrap;
+}
+
+nav a{
+    color: white;
+   
+    text-decoration:none;
+}
+
+
 footer {
-    background-color: #CA5F02;
+    background-color: #585455;
+}
+
+footer div a {
     color: white;
 }
 
-nav  {
-    background-color:#CA5F02 !important;
+.footer-copyright {
+    color: white;
+}
 
+img {
+ width: 100%;
+ height: auto;
 }
 
 
 
-
-.div-categoryContainer{
-    padding: 10px;
+main{
+    display: row;
+    flex-wrap: wrap;
+    justify-content: space-between;  
 }
- 
-.nav-item {
-    font-family: 'Times New Roman', Times, serif;
-   
+
+
+.styled {
+    border: 0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    text-shadow: 1px 1px 1px  #585455;
+    border-radius: 10px;
+    background-color:  #585455;
+    background-image: linear-gradient(to top left,
+                                      rgba(0, 0, 0, .2),
+                                      rgba(0, 0, 0, .2) 30%,
+                                      rgba(0, 0, 0, 0));
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
+                inset -2px -2px 3px  #585455;
+}
+
+.styled:hover {
+    background-color:  #585455;
+}
+
+.styled:active {
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
+                inset 2px 2px 3px  #585455;
+}
+
+
     
-   
-}
-
-.nav-link{
-    color: white;
+    .texte-image{
+      display:flex;
+      flex-wrap:wrap;
+      overflow:hidden;
+      margin-left:auto;
+      margin-right:auto;
+      justify-content:center;
+      align-items:center;
+     
+    }
     
-}
-
-.navbar-brand {
-    font-family: 'Times New Roman', Times, serif;
-    color: white;
-}
-
-.list-unstyled {
-    font-family: 'Times New Roman', Times, serif;
-   
-}
-
-footer ul li a {
-    color: white;
-
-}
-
-.footer-copyright a {
-    font-family: 'Times New Roman', Times, serif;
-    color: white;
-
-}
+    .image-texte{
+      display:flex;
+      flex-wrap:wrap;
+      overflow:hidden;
+      margin-left:auto;
+      margin-right:auto;
+      justify-content:center;
+      align-items:center;
+    
+      
+    }
+    
+    
+    .texte{
+      width:50%;
+      padding:40px;
+      margin:auto;
+    }
+    
+    
+    
+    .image{
+      width:50%;
+      height:500px;
+      text-align:center;
+      margin:auto;
+      padding:40px;
+    }
+    
+    /* **************  POUR SMARTPHONE  ********************* */
+    @media screen and (max-width:767.98px){
+      .texte, .image{
+       width:100%; 
+       
+      }
+     .image-texte{
+        flex-direction:column-reverse;
+       }   
+    }

@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class DevEatController extends AbstractController
 {
     /**
-     * @Route("/dev/eat", name="dev_eat")
+     * @Route("/", name="dev_eat")
      */
     
     public function index(): Response
