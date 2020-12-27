@@ -1,20 +1,47 @@
 #top{
     background-color: #585455;
-    width: 100%;
-    padding-top:30px ;
-    padding-bottom: 30px;
-    align-items: center;
-    justify-content: space-around;
-display:flex;
-flex-wrap: wrap;
+    padding-top: 0;
+    padding-bottom: 0;
 }
+
+#flex{
+  align-items: center !important;
+  justify-content: space-around  !important;
+  display:flex  !important;
+  flex-wrap: wrap  !important;
+  width: 100%;
+}
+
+nav img{
+  width: 7vw;
+}
+
+figure figcaption input{
+  position:absolute;
+  background:rgba(255,255,255, 0.9);
+  width: 30vw;
+  top:35vw;
+  left:35vw;
+  border: none;
+  border-radius: 10px;
+  padding: 1vw;
+  text-align: center;
+  
+}
+
+
+figure figcaption i { 
+  position: absolute; 
+  top:35vw;
+  left:35vw;
+  padding: 19px 0 0 18px;
+} 
+
 
 nav a{
-    color: white;
-   
+    color: white !important;
     text-decoration:none;
 }
-
 
 footer {
     background-color: #585455;
@@ -22,6 +49,11 @@ footer {
 
 footer div a {
     color: white;
+}
+
+footer a :hover{
+  color: white !important;
+  text-decoration: none;
 }
 
 .footer-copyright {
@@ -32,8 +64,6 @@ img {
  width: 100%;
  height: auto;
 }
-
-
 
 main{
     display: row;
@@ -98,11 +128,22 @@ main{
     .texte{
       width:50%;
       padding:40px;
-      margin:auto;
+      margin-top: -6vw;
+      text-align: center;
+      font-size: 18px;
     }
     
+    .flexButton{
+      justify-content: center;
+      display: flex;
+      margin-top: 3vw;
+    }
     
-    
+    .flexButton button{
+          background-color:  #585455;
+          color: white;
+    }
+
     .image{
       width:50%;
       height:500px;
@@ -110,6 +151,8 @@ main{
       margin:auto;
       padding:40px;
     }
+
+
     
     /* **************  POUR SMARTPHONE  ********************* */
     @media screen and (max-width:767.98px){
