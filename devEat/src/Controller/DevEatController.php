@@ -15,7 +15,6 @@ class DevEatController extends AbstractController
     public function index(): Response
     {
         return $this->render('dev_eat/index.html.twig', [
-            'controller_name' => 'DevEatController',
         ]);
     }
 }

@@ -16,6 +16,10 @@ nav img{
   width: 7vw;
 }
 
+footer img{
+  width: 7vw;
+}
+
 figure figcaption input{
   position:absolute;
   background:rgba(255,255,255, 0.9);
@@ -28,15 +32,6 @@ figure figcaption input{
   text-align: center;
   
 }
-
-
-figure figcaption i { 
-  position: absolute; 
-  top:35vw;
-  left:35vw;
-  padding: 19px 0 0 18px;
-} 
-
 
 nav a{
     color: white !important;
@@ -158,9 +153,15 @@ main{
     @media screen and (max-width:767.98px){
       .texte, .image{
        width:100%; 
+       height: auto;
        
       }
      .image-texte{
         flex-direction:column-reverse;
-       }   
+       } 
+       
+       figure figcaption input{
+        width: 60vw;
+        left: 20%;
+      }
     }

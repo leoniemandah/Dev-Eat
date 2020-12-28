@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Acceuil!
+{% block title %}Acceuil !
 {% endblock %}
 
 {% block body %}
@@ -9,37 +9,34 @@
 		<img src="{{ asset('image/' ~ 'cuisine.jpg') }}" alt="mon image de fond">
 			<figcaption>
 				<input  class="input-field" type="text" placeholder="Entrez votre posotion" ></input>
-				<i class="fa fa-search icon"></i>
 			</figcaption>
 	</figure>
 
-	
-	
-
 	<div class="image-texte">
- 		<div class="texte"><p>Vous souhaitez manger un vrai bon burger avec des produits locaux ? Venez regarder nos meilleurs restaurants</p>
-			<div class="flexButton">
- 				<button type="button" class="btn">Regardez nos burgers</button>
-			</div>
- 		</div> 
- 		<div class="image"><img src="{{ asset('image/' ~ 'burger.jpg') }}"></div>
-	<div>
+ 	<div class="texte"><p>Vous souhaitez manger un vrai bon burger avec des produits locaux ? Venez regarder nos meilleurs restaurants</p>
+	    <div class="flexButton">
+			<button type="button" class="btn">Regardez nos burgers</button>
+		</div>
+	</div>
+	<div class="image"><img src="{{ asset('image/' ~ 'burger.jpg') }}"></div>
+	</div>
 
   	<div class="texte-image">
- 		<div class="image"><img src="{{ asset('image/' ~ 'kl.webp') }}"></div>
- 		<div class="texte"><p>Un plat asiatique vous tente : nems sushi etc.N'hésitez plus et venez voir nos meilleurs restaurants</p>
+ 		<div class="image"><img src="{{ asset('image/' ~ 'hm.webp') }}"></div>
+ 		<div class="texte"><p>Un plat asiatique vous tente : nems sushi etc. N'hésitez plus et venez voir nos meilleurs restaurants</p>
  			<div class="flexButton">
  				<button type="button" class="btn">Regardez nos plats asiatiques</button>
 			</div>
 		</div>
  	</div>
+
 	<div class="image-texte">
  	<div class="texte"><p>Une bonne pizza italienne ne vous fais envie ? Je suis sur que si ! Alors venez regarder nos meilleurs restaurants</p>
 	    <div class="flexButton">
 			<button type="button" class="btn">Regardez nos pizzas</button>
 		</div>
- 	</div> 
-	<div class="image"><img src="{{ asset('image/' ~ 'hm.webp') }}"></div>
+	</div>
+	<div class="image"><img src="{{ asset('image/' ~ 'kl.webp') }}"></div>
 	</div>
 
 
