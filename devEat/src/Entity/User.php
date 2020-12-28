@@ -7,10 +7,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- */
+ * @UniqueEntity(
+ * fields = {"email"},
+ * message = "Cet email est déjà utilisé"
+ * )
+ *
+ */ 
 class User implements UserInterface
 {
     /**
@@ -22,6 +29,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email()
+
      */
     private $email;
 
@@ -33,8 +42,17 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(min="8", minMessage="Votre mot de passe dois faire minimum 8 caractère")
+     * @Assert\EqualTo(propertyPath="confirm_password", message="Votre mot de passe n'est pas le même")
      */
-    private $password;
+    private $password;  
+   
+    /**
+     * @Assert\EqualTo(propertyPath="password", message="Votre mot de passe n'est pas le même")
+     * @var [type]
+     */
+    public $confirm_password;
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -48,6 +66,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="float")
+     * 
      */
     private $solde;
 
@@ -120,7 +139,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword()
     {
         return (string) $this->password;
     }
@@ -128,6 +147,21 @@ class User implements UserInterface
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getConfirmPassword()
+    {
+        return (string) $this->confirm_password;
+    }
+
+    public function setConfirmPassword(string $confirm_password): self
+    {
+        $this->confirm_password = $confirm_password;
 
         return $this;
     }

@@ -147,6 +147,35 @@ main{
       padding:40px;
     }
 
+    form div{
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2vw;
+}
+
+    form div input{
+      border-radius: 10px;
+      border: solid 1px black;
+      width: 20vw;
+      padding: 5px;
+    }
+
+
+    form div label{
+      margin-right: 4vw;
+    }
+
+    #user_roles_0{
+      width: 5vw;
+      margin-top: 6px;
+    }
+
+    #user_roles_1{
+      width: 5vw;
+      margin-top: 6px;
+
+    }
+    
 
     
     /* **************  POUR SMARTPHONE  ********************* */
