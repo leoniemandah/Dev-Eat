@@ -31,8 +31,14 @@
                 <td>{{ user.solde }}</td>
                 <td>{{ user.Address }}</td>
                 <td>
+                {% if is_granted('ROLE_ADMIN')  %}
+                    <a href="{{ path('admin_user_show', {'user': user.id}) }}">show</a>
+                    <a href="{{ path('admin_user_edit', {'user': user.id}) }}">edit</a>
+                {% else %}
                     <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
                     <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                {% endif %}
+                    
                 </td>
             </tr>
         {% else %}
@@ -42,6 +48,7 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('user_new') }}">Create new</a>
+                {% if is_granted('ROLE_ADMIN')  %}
+                    <a href="{{ path('admin_user_new') }}">Create new</a>
+                {% endif %}
 {% endblock %}

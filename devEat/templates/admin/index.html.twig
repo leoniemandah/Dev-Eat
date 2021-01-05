@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin {% endblock %}
+
+{% block body %}
+
+    <h1  class="text-center mt-5 mb-5" >Administrateur</h1>
+
+    <div style="display: flex; justify-content: space-around;">
+    <div class="card" style="width: 40%" >
+    <h5 class="text-center card-header">Les restaurants</h5>
+    <div class="card-body">
+        <p class="card-text text-center">Accéder à toute la liste des restaurants </p>
+        <div style="display: flex; justify-content: center;">
+        <a style="background-color: #585455;color: white;" href="{{ path('admin_restaurants') }}" class="btn mb-3 mt-3">Voir les restaurants</a>
+        </div>
+    </div>
+    </div>
+
+    
+
+    <div class="card" style="width: 40%" >
+    <h5 class="text-center card-header">Les clients</h5>
+    <div class="card-body">
+        <p class="card-text text-center">Accéder à toute la liste des clients </p>
+        <div style="display: flex; justify-content: center;">
+        <a style="background-color: #585455;color: white;" href="{{ path('admin_users') }}" class="btn mb-3 mt-3">Voir les clients</a>
+        </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock %}

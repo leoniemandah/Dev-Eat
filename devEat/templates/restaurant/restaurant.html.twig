@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurant{% endblock %}
+
+{% block body %}
+    <h1>Restaurant</h1>
+
+    {{user.restaurant.id}}    
+        {{ include('user/_delete_form.html.twig') }}
+
+
+{% endblock %}
