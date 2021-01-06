@@ -4,6 +4,12 @@
     padding-bottom: 0;
 }
 
+#contain{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 #flex{
   align-items: center !important;
   justify-content: space-around  !important;

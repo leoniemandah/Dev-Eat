@@ -4,13 +4,28 @@
 {% endblock %}
 
 {% block body %}
-    <center>
-			<h1>Découvrez nos restaurants</h1>
-		</center>
+	<center>
+		<h1>Découvrez nos restaurants</h1>
+	</center>
+
 	{% for restaurant in restaurants %}
-		<article>
-			<img src="{{ restaurant.logo }}" alt="">
-			<h2>{{ restaurant.name }} ({{restaurant.address}} )</h2>
-		</article>
+
+		<div class="contain">
+
+
+			<div class="card" style="width: 18rem;">
+				<a href="#"><img src="{{ restaurant.logo }}" class="card-img-top" alt="..."></a>
+				<div class="card-body">
+					<h5 class="card-title">{{ restaurant.name }}
+						({{restaurant.address}}
+						)</h5>
+					<p class="card-text">Les frais de livraison: 2£ . 10-20min</p>
+
+				</div>
+			</div>
+		</div>
+		<br/>
+
 	{% endfor %}
+
 {% endblock %}
