@@ -13,11 +13,6 @@
 		{% for restaurant in restaurants %}
 			<div class="card mb-5" style="width: 24rem; border: none;">
 				<a href="{{ path('restaurant_show', {'id':restaurant.id}) }}"><img src="{{ restaurant.logo }}" class="card-img-top" alt="..."></a>
-
-	{% for restaurant in restaurants %}
-			<div class="card mb-5" style="width: 22rem;">
-				<a href="#"><img src="{{ restaurant.logo }}" class="card-img-top" alt="..."></a>
-
 				<div class="card-body">
 					<h5 class="card-title">{{ restaurant.name }}
 						({{restaurant.address}}
