@@ -5,14 +5,11 @@ namespace App\Controller;
 use App\Entity\Restaurant;
 use App\Entity\User;
 use App\Form\RestaurantType;
-use App\Repository\RestaurantRepository;
+use App\Repository\MealRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
-use PhpParser\Node\Expr\New_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -21,6 +18,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class RestaurantController extends AbstractController
 {
 
+    /**
+     * @Route("/{id}/Meal", name="AllMeal", methods={"GET"})
+     */
+    public function Meal(Restaurant $restaurant ,MealRepository $mealRepository){
+        
+        $meals = $mealRepository->findByRestaurantId();
+
+         return $this->render('meal/index.html.twig', [
+        'restaurant' => $restaurant,
+        'meals'=> $meals
+    ]);
+    }
+
+    
     /**
     * @Route("/user/{id}/profil", name="restaurant")
     */
@@ -93,5 +104,7 @@ class RestaurantController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    
 
 }

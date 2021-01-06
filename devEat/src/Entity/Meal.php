@@ -40,7 +40,7 @@ class Meal
     private $Note;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="meals")
+     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="meals, nullable=true")
      */
     private $Restaurant;
 
