@@ -3,7 +3,43 @@
 {% block title %}Restaurant{% endblock %}
 
 {% block body %}
-    <h1 class="text-center mt-5 mb-5">Restaurant</h1>
-    {{user.restaurant.id}}    
+    <h1 class="text-center mt-5 mb-5">Votre restaurant : {{user.restaurant.name}}</h1>
+
+   <div style="display: flex; justify-content: space-around;flex-wrap: wrap;">
+
+    <div class="card  mb-5" style="width: 40%" >
+    <h5 class="text-center card-header">Votre compte</h5>
+    <div class="card-body">
+        <p class="card-text text-center">Consulter ou modifier les informations de votre compte</p>
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+            <a style="background-color: #585455;color: white;" href="{{ path('user_show', {'id': user.id}) }}" class="btn mb-3 mt-3">Voir votre compte</a>
+            <a style="background-color: #585455;color: white;" href="{{ path('user_edit', {'id': user.id}) }}" class="btn mb-3 mt-3">Modifier votre compte</a>
+        </div>
+    </div>
+    </div>
+
+    <div class="card  mb-5" style="width: 40%" >
+    <h5 class="text-center card-header">Votre restaurant</h5>
+    <div class="card-body">
+        <p class="card-text text-center">Consulter ou modifier les informations de votre restaurant</p>
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+            <a style="background-color: #585455;color: white;" href="{{ path('restaurant_show', {'id': user.restaurant.id}) }}" class="btn mb-3 mt-3">Voir votre restaurant</a>
+            <a style="background-color: #585455;color: white;" href="{{ path('restaurant_edit', {'id': user.restaurant.id}) }}" class="btn mb-3 mt-3">Modifier votre restaurant</a>
+        </div>
+    </div>
+    </div>
+
+    <div class="card  mb-5" style="width: 40%" >
+    <h5 class="text-center card-header">Vos plats</h5>
+    <div class="card-body">
+        <p class="card-text text-center">Consulter ou ajouter des plats à votre restaurant</p>
+        <div style="display: flex; flex-direction: column; justify-content: center;">
+            <a style="background-color: #585455;color: white;" href="{{ path('user_show', {'id': user.id}) }}" class="btn mb-3 mt-3">Voir vos plats</a>
+            <a style="background-color: #585455;color: white;" href="{{ path('user_edit', {'id': user.id}) }}" class="btn mb-3 mt-3">Ajouter un plat</a>
+        </div>
+    </div>
+    </div>
+
+    </div>
         {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

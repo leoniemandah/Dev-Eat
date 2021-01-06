@@ -37,6 +37,15 @@ figure figcaption input{
   
 }
 
+button{
+  background: #585455 !important;
+  color: white  !important;
+}
+
+button :hover{
+  color: white  !important;
+}
+
 nav a{
     color: white !important;
     text-decoration:none;
