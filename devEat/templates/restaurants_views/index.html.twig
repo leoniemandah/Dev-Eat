@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurants!
+{% endblock %}
+
+{% block body %}
+    <center>
+			<h1>Découvrez nos restaurants</h1>
+		</center>
+	{% for restaurant in restaurants %}
+		<article>
+			<img src="{{ restaurant.logo }}" alt="">
+			<h2>{{ restaurant.name }} ({{restaurant.address}} )</h2>
+		</article>
+	{% endfor %}
+{% endblock %}
