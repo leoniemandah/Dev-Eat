@@ -6,7 +6,7 @@
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <ul id="flex" class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('dev_eat') }}">Acceuil</a>
+          <a class="nav-link" href="{{ path('dev_eat') }}">Accueil</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Restaurants</a>
@@ -22,6 +22,18 @@
           <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
         </li>
         {% else %}
+        {% if is_granted('ROLE_ADMIN')  %}
+        <a href="{{ path('admin') }}">Tableau de bord</a>
+        {% endif %}
+        {% if is_granted('ROLE_RESTAURANT')  %}
+            {% if app.user.restaurant.id is defined %}
+              <a href="{{ path('restaurant', {'id': app.user.id}) }}">Profil</a>
+              {% else %}
+              <a href="{{ path('restaurant_new', {'id': app.user.id}) }}">Ajouter votre restaurant</a>
+             {% endif %}
+        {% else %}
+         <a href="{{ path('user_show', {'id': app.user.id}) }}">Profil</a>
+        {% endif %}
          <li class="nav-item">
           <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
         </li>       

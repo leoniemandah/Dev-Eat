@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter restaurant{% endblock %}
+
+{% block body %}
+    {% if user.restaurant.id is defined %}
+        <h1 class="text-center mt-5 mb-5">Vous avez déjà votre restaurant</h1>
+        {{user.restaurant.name}}
+
+    {% else %}
+     <h1 class="text-center mt-5 mb-5" >Ajouter votre restaurant</h1>
+    {{ include('restaurant/_form.html.twig') }}
+
+    {% if is_granted('ROLE_ADMIN')  %}
+    <a href="{{ path('admin_restaurants') }}">back to list</a>
+
+    {% endif %}
+
+    {% endif %}
+
+{% endblock %}

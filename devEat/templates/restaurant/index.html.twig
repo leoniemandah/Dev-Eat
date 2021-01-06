@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurant index{% endblock %}
+
+{% block body %}
+    <h1>Restaurant index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Logo</th>
+                <th>Address</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for restaurant in restaurants %}
+            <tr>
+                <td>{{ restaurant.id }}</td>
+                <td>{{ restaurant.Name }}</td>
+                <td>{{ restaurant.Logo }}</td>
+                <td>{{ restaurant.Address }}</td>
+                <td>  
+        {% if is_granted('ROLE_ADMIN')  %}
+            <a href="{{ path('admin_restaurant_show', {'id': restaurant.id}) }}">show</a>
+            <a href="{{ path('admin_restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+            {% else %}
+            <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a>
+            <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+        {% endif %}
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if is_granted('ROLE_ADMIN')  %}
+        <a href="{{ path('admin_restaurant_new') }}">Create new</a>
+    {% else %}
+        <a href="{{ path('restaurant_new') }}">Create new</a>
+    {% endif %}
+
+{% endblock %}
