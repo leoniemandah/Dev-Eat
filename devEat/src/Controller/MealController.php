@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/restaurant/meal")
+ * @Route("/crudRestaurant/meal")
  */
 class MealController extends AbstractController
 {
