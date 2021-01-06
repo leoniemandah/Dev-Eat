@@ -4,8 +4,8 @@
 
 {% block body %}
     {% if user.restaurant.id is defined %}
-        <h1 class="text-center mt-5 mb-5">Vous avez déjà votre restaurant</h1>
-        {{user.restaurant.name}}
+        <h1 class="text-center mt-5 mb-5">Vous avez déjà votre restaurant {{user.restaurant.name}}</h1>
+        <a href="{{ path('restaurant', {'id': user.id}) }}">Accéder à votre profil</a>
 
     {% else %}
      <h1 class="text-center mt-5 mb-5" >Ajouter votre restaurant</h1>
