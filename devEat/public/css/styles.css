@@ -12,6 +12,10 @@
   width: 100%;
 }
 
+#restaurant{
+  justify-content: space-around;
+}
+
 nav img{
   width: 7vw;
 }
