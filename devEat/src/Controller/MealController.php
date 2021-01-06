@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Meal;
 use App\Form\MealType;
-use App\Repository\MealRepository;
+use App\Repository\RestaurantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,38 +15,36 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class MealController extends AbstractController
 {
-    /**
-     * @Route("/", name="meal_index", methods={"GET"})
-     */
-    public function index(MealRepository $mealRepository): Response
-    {
-        return $this->render('meal/index.html.twig', [
-            'meals' => $mealRepository->findAll(),
-        ]);
-    }
 
+
+    
     /**
-     * @Route("/new", name="meal_new", methods={"GET","POST"})
+     * @Route("/{id}/new", name="meal_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(int $id = 0, Request $request, RestaurantRepository $restaurantRepository): Response
     {
         $meal = new Meal();
         $form = $this->createForm(MealType::class, $meal);
         $form->handleRequest($request);
+        $restaurant = $restaurantRepository->find($id);
+            
+            $meal->setRestaurant($restaurant);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($meal);
             $entityManager->flush();
 
-            return $this->redirectToRoute('meal_index');
+            return $this->redirectToRoute('dev_eat');
         }
 
         return $this->render('meal/new.html.twig', [
             'meal' => $meal,
+            'restaurant' =>$restaurant,
             'form' => $form->createView(),
         ]);
     }
+
 
     /**
      * @Route("/{id}", name="meal_show", methods={"GET"})
@@ -57,6 +55,7 @@ class MealController extends AbstractController
             'meal' => $meal,
         ]);
     }
+
 
     /**
      * @Route("/{id}/edit", name="meal_edit", methods={"GET","POST"})
@@ -69,7 +68,7 @@ class MealController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('meal_index');
+            return $this->redirectToRoute('dev_eat');
         }
 
         return $this->render('meal/edit.html.twig', [
@@ -89,6 +88,6 @@ class MealController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('meal_index');
+        return $this->redirectToRoute('dev_eat');
     }
 }

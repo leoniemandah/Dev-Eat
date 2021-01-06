@@ -37,5 +37,6 @@
         </tbody>
     </table>
 
-    <a href="{{ path('meal_new') }}">Create new</a>
+    <a href="{{ path('meal_new', {'id': restaurant.id}) }}">Create new</a>
+
 {% endblock %}

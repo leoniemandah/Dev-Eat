@@ -30,7 +30,11 @@
         </tbody>
     </table>
 
+    {% if is_granted('ROLE_ADMIN')  %}
+
     <a href="{{ path('meal_index') }}">back to list</a>
+
+    {% endif %}
 
     <a href="{{ path('meal_edit', {'id': meal.id}) }}">edit</a>
 
