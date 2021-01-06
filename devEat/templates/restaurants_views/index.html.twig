@@ -5,15 +5,12 @@
 
 {% block body %}
 	<center>
-		<h1>Découvrez nos restaurants</h1>
+		<h1 class="mt-4 mb-5">Découvrez nos restaurants</h1>
 	</center>
 
+	<div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
 	{% for restaurant in restaurants %}
-
-		<div class="contain">
-
-
-			<div class="card" style="width: 18rem;">
+			<div class="card mb-5" style="width: 24rem;">
 				<a href="#"><img src="{{ restaurant.logo }}" class="card-img-top" alt="..."></a>
 				<div class="card-body">
 					<h5 class="card-title">{{ restaurant.name }}
@@ -22,10 +19,8 @@
 					<p class="card-text">Les frais de livraison: 2£ . 10-20min</p>
 
 				</div>
-			</div>
 		</div>
 		<br/>
-
 	{% endfor %}
-
+	</div>
 {% endblock %}
