@@ -43,6 +43,22 @@ figure figcaption input{
   
 }
 
+figure figcaption h5{
+  position: absolute;
+  width: 50px;
+  background-color:rgb(32, 31, 31, 0.9);
+  top: 13vw;
+  right:3px;
+  padding: 1 1vw;
+  padding-bottom: 1vw; 
+  border-radius: 10px;
+  color:white ;
+  font-size: medium;
+
+}
+
+
+
 button{
   background: #585455 !important;
   color: white  !important;

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
+		{% for meal in restaurant.meals %}
+
+			<div class="card mb-5" style="width: 24rem; border: none;">
+
+				<figure>
+					<img src="{{ meal.picture }}" class="card-img-top" alt="">
+					<figcaption>
+						<h5>{{ meal.price }}€</h5>
+					</figcaption>
+				</figure>
+
+				<div class="card-body">
+
+					<center>
+						<h5>{{ meal.name }}</h5>
+					</center>
+					<div class="flexButton">
+						<button type="button" class="btn">Acheter</button>
+					</div>
+
+				</div>
+			</div>
+			<br/>
+		{% endfor %}
+	</div>
+{% endblock %}
