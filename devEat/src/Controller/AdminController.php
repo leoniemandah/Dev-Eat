@@ -23,12 +23,14 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/bord", name="admin")
+     * @Route("/{id}/bord", name="admin")
      */
-    public function index(): Response
+    public function index(User $user, RestaurantRepository $restaurantRepository ): Response
     {
         return $this->render('admin/index.html.twig', [
-        ]);
+        'user'=> $user,
+        'restaurant' => $restaurantRepository->findCount()
+            ]);
     }
 
     /**
