@@ -1,13 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Meal{% endblock %}
+{% block title %}Ajouter plat{% endblock %}
 
 {% block body %}
-    <h1>Create new Meal</h1>
+    <h1 class="text-center mt-5 mb-5">Ajouter un plat</h1>
 
     {{ include('meal/_form.html.twig') }}
 
-    {% if is_granted('ROLE_ADMIN')  %}
-    <a href="{{ path('meal_index') }}">back to list</a>
-    {% endif %}
 {% endblock %}

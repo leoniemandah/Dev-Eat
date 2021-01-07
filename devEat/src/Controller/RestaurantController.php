@@ -62,7 +62,7 @@ class RestaurantController extends AbstractController
                 $entityManager->persist($restaurant);
                 $entityManager->flush();
     
-                return $this->redirectToRoute('restaurant');
+                return $this->redirectToRoute('dev_eat');
             }
         
         
@@ -76,7 +76,7 @@ class RestaurantController extends AbstractController
 
 
     /**
-     * @Route("/{id}", name="restaurant_show", methods={"GET"})
+     * @Route("/{id}", name="crud_restaurant_show", methods={"GET"})
      */
     public function show(Restaurant $restaurant): Response
     {
