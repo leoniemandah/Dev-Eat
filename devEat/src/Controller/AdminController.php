@@ -118,8 +118,9 @@ class AdminController extends AbstractController
      */
     public function User(UserRepository $userRepository): Response
     {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+        $clients = $userRepository->findByRole('[]');
+        return $this->render('admin/client.html.twig', [
+            'clients' => $clients
         ]);
     }
 

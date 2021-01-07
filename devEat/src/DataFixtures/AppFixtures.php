@@ -28,8 +28,8 @@ class AppFixtures extends Fixture
             $user = new User;
             $user
               ->setEmail($faker->freeEmail)
-              ->setRoles(['ROLE_RESTAURANT'])
-              ->setPassword($this->passwordEncoder->encodePassword($user,'test'))
+              ->setRoles(['ROLE_USER'])
+              ->setPassword($this->passwordEncoder->encodePassword($user,'154876923'))
               ->setFirstName($faker->firstName)
               ->setLastName($faker->lastName)
               ->setSolde($faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 1000))
@@ -39,27 +39,7 @@ class AppFixtures extends Fixture
             $manager->persist($user);
           }
 
-        for ($i = 0; $i < 25; $i++) {
-            $restaurant = new Restaurant;
-            $restaurant
-              ->setName($faker->sentence(3))
-              ->setLogo($faker->imageUrl)
-              ->setAddress($faker->address);
-        
-            $manager->persist($restaurant);
-          }
-
-          for ($i = 0; $i < 25; $i++) {
-            $meal = new Meal;
-            $meal
-              ->setName($faker->sentence(3))
-              ->setPicture($faker->imageUrl)
-              ->setPrice($faker->randomFloat($nbMaxDecimals = 2, $min = 0, $max = 30))
-              ->setNote($faker->numberBetween($min = 0, $max = 5))
-              ->setRestaurant($restaurant);
-            $manager->persist($meal);
-          }
-
+      
       
           $manager->flush();
           
