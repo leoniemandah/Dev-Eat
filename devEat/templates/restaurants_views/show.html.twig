@@ -2,30 +2,40 @@
 
 {% block body %}
 
-	<div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
-		{% for meal in restaurant.meals %}
+	<div class="jumbotron jumbotron-fluid">
+		<center><div class="container">
+			<h1 class="display-4">{{restaurant.name}}</h1>
+			<p class="lead">Découvrez nos plats</p>
+		</br>
+		<h5>{{restaurant.address}}</h5>
 
-			<div class="card mb-5" style="width: 24rem; border: none;">
+	</div></center>
+</div>
 
-				<figure>
-					<img src="{{ meal.picture }}" class="card-img-top" alt="">
-					<figcaption>
-						<h5>{{ meal.price }}€</h5>
-					</figcaption>
-				</figure>
 
-				<div class="card-body">
 
-					<center>
-						<h5>{{ meal.name }}</h5>
-					</center>
-					<div class="flexButton">
-						<button type="button" class="btn">Acheter</button>
-					</div>
+<div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
+{% for meal in restaurant.meals %}
 
-				</div>
+	<div class="card mb-5" style="width: 24rem; border: none;">
+
+		<figure>
+			<img src="{{ meal.picture }}" class="card-img-top" alt="">
+			<figcaption>
+				<h5>{{ meal.price }}€</h5>
+			</figcaption>
+		</figure>
+
+		<div class="card-body">
+
+			<center>
+				<h5>{{ meal.name }}</h5>
+			</center>
+			<div class="flexButton">
+				<button type="button" class="btn">Acheter</button>
 			</div>
-			<br/>
-		{% endfor %}
+
+		</div>
 	</div>
-{% endblock %}
+	<br/>
+{% endfor %}</div>{% endblock %}
