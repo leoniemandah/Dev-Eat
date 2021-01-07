@@ -1,16 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Meal{% endblock %}
+{% block title %}Modifier repas{% endblock %}
 
 {% block body %}
-    <h1>Edit Meal</h1>
+    <h1 class="text-center mt-5 mb-5">Modifier le repas </h1>
 
-    {{ include('meal/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('meal/_form.html.twig', {'button_label': 'Modifier'}) }}
+
 
     {% if is_granted('ROLE_ADMIN')  %}
-
-    <a href="{{ path('meal_index') }}">back to list</a>
-
+    <div style="display: flex;justify-content: space-around;">
+        <a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_restaurant_show', {'id': meal.restaurant.id}) }}">Voir le restaurant</a>
+    {% else %}  
+    <div style="display: flex;justify-content: space-around;">
+        <a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('crud_restaurant_show', {'id': meal.restaurant.id}) }}">Voir votre restaurant</a>
     {% endif %}
     {{ include('meal/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

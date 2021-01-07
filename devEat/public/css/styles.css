@@ -22,6 +22,10 @@
   justify-content: space-around;
 }
 
+#meal{
+  justify-content: space-around;
+}
+
 nav img{
   width: 7vw;
 }

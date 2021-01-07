@@ -30,11 +30,6 @@ class Restaurant
     private $Logo;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Address;
-
-    /**
      * @ORM\OneToOne(targetEntity=User::class, inversedBy="restaurant", cascade={"persist", "remove"})
      */
     private $User;

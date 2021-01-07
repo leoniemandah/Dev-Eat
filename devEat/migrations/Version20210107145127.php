@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20201118150741 extends AbstractMigration
+final class Version20210107145127 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -20,16 +20,14 @@ final class Version20201118150741 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE meal ADD restaurant_id INT NOT NULL');
-        $this->addSql('ALTER TABLE meal ADD CONSTRAINT FK_9EF68E9CB1E7706E FOREIGN KEY (restaurant_id) REFERENCES restaurant (id)');
-        $this->addSql('CREATE INDEX IDX_9EF68E9CB1E7706E ON meal (restaurant_id)');
+        $this->addSql('ALTER TABLE meal CHANGE price price DOUBLE PRECISION DEFAULT NULL');
+        $this->addSql('ALTER TABLE restaurant DROP address');
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE meal DROP FOREIGN KEY FK_9EF68E9CB1E7706E');
-        $this->addSql('DROP INDEX IDX_9EF68E9CB1E7706E ON meal');
-        $this->addSql('ALTER TABLE meal DROP restaurant_id');
+        $this->addSql('ALTER TABLE meal CHANGE price price DOUBLE PRECISION NOT NULL');
+        $this->addSql('ALTER TABLE restaurant ADD address VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`');
     }
 }

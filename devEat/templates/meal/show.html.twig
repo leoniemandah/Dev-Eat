@@ -1,42 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Meal{% endblock %}
+{% block title %}Plat{% endblock %}
 
 {% block body %}
-    <h1>Meal</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ meal.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ meal.Name }}</td>
-            </tr>
-            <tr>
-                <th>Picture</th>
-                <td>{{ meal.Picture }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ meal.Price }}</td>
-            </tr>
-            <tr>
-                <th>Note</th>
-                <td>{{ meal.Note }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    {% if is_granted('ROLE_ADMIN')  %}
-
-    <a href="{{ path('meal_index') }}">back to list</a>
-
-    {% endif %}
-
-    <a href="{{ path('meal_edit', {'id': meal.id}) }}">edit</a>
-
-    {{ include('meal/_delete_form.html.twig') }}
+    <h1 class="text-center mt-5 mb-5">Plat : {{meal.Name}}</h1>
+    <div style="display: flex;justify-content:space-evenly;flex-wrap: wrap;">
+        <div class="card" style="width: 24rem; border: none;">
+            <img src="{{ meal.picture }}" class="card-img-top" alt="">
+                <div class="card-body">
+                    <center>
+                        <h5>{{ meal.name }} {{meal.Price}} € </h5>
+                        {% if meal.Note is null %}
+                            <h5>Note du plat : Le plat n'a pas été noté</h5>
+                        {% else %}
+                            <h5>Note du plat : {{ meal.Note }}</h5>
+                        {% endif %}
+                        <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_meal_edit', {'id': meal.id}) }}">Modifier le plat</a>
+                        {{ include('meal/_delete_form.html.twig') }}
+                        {% if is_granted('ROLE_ADMIN')  %}
+                            <a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_restaurant_show', {'id': meal.restaurant.id}) }}">Retourner au restaurant</a>
+                        {% else %}  
+                            <a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('crud_restaurant_show', {'id': meal.restaurant.id}) }}">Retourner au restaurant</a>
+                        {% endif %}
+                    </center>                   
+                </div>
+        </div>
+    </div>             
 {% endblock %}

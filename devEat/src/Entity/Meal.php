@@ -30,7 +30,7 @@ class Meal
     private $Picture;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float",nullable=true)
      */
     private $Price;
 

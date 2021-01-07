@@ -3,51 +3,33 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+  {% if is_granted('ROLE_ADMIN')  %}
+    <h1 class="text-center mt-5 mb-5" >Utilisateur {{user.id}}</h1>
+    {% else %}
+    <h1 class="text-center mt-5 mb-5" >Votre profil</h1>
+    {% endif %}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ user.FirstName }}</td>
-            </tr>
-            <tr>
-                <th>LastName</th>
-                <td>{{ user.LastName }}</td>
-            </tr>
-            <tr>
-                <th>Solde</th>
-                <td>{{ user.solde }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ user.Address }}</td>
-            </tr>
-        </tbody>
-    </table>
-                {% if is_granted('ROLE_ADMIN')  %}
-                    <a href="{{ path('admin_users') }}">back to list</a>
-                    <a href="{{ path('admin_user_edit', {'user': user.id}) }}">edit</a>
-                {% else %}
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-                {% endif %}
-
-
-    {{ include('user/_delete_form.html.twig') }}
+    <div style="display: flex; justify-content: center;">
+        <div class="card border-dark mb-5" style="max-width: 23rem;">
+        <div class="card-header">{{user.FirstName}} {{user.LastName}}</div>
+        <div class="card-body text-dark">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Email : {{user.email}}</li>
+            <li class="list-group-item">Role : {{user.roles ? user.roles|json_encode : '' }}</li>
+            <li class="list-group-item">Address : {{user.Address}}</li>
+            <li class="list-group-item">Solde : {{user.solde}} €</li>
+        </ul>    
+        </div>
+        <div style="display: flex;flex-direction: column;align-items: center;">
+        {{ include('user/_delete_form.html.twig') }}
+          {% if is_granted('ROLE_ADMIN')  %}
+        <a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_user_edit', {'user': user.id}) }}">Modifier</a>
+        <a class="btn mb-2 mt-2" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_users') }}">Voir liste</a>
+        {% else %}
+            <a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;"  href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
+        {% endif %}
+        </div>
+        </div>
+        </div>
 {% endblock %}
+                   
