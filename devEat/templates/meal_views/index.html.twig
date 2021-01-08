@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Meal_views!{% endblock %}
+
+{% block body %}
+
+<body>
+  <div class="image-with-text">
+    <div class="image-side">
+      <img src="{{meal.picture}}">
+    </div>
+
+    <div class="text-side">
+      <div class="text-side-inline">
+        <p class="text-side-title">{{ meal.name }}</p>
+         <p class="text-side-desc">Suprême de grouse d’écosse, farci à l’ancienne, mousseline de céleri, accompagnée de ses pommes maximes et une sauce au singel malt de la montagne de Reims.</p>
+        <p class="text-side-desc">Prix: {{ meal.price }}€</p>
+
+        {% if meal.Note is null %}
+                            <p class="text-side-desc">Note du plat : Le plat n'a pas été noté</p>
+                        {% else %}
+                            <p class="text-side-desc">Note du plat : {{ meal.Note }}</p>
+                        {% endif %}
+
+        <a href="/">
+          <div class="text-side-button">Acheter</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+
+{% endblock %}

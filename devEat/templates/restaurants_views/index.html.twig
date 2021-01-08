@@ -18,6 +18,11 @@
 						({{restaurant.address}}
 						)</h5>
 					<p class="card-text">Les frais de livraison: 2,5€ . 10-20min</p>
+					<div class="flexButton">
+					<a href="{{ path('restaurant_show', {'id':restaurant.id}) }}">
+						<button type="button" class="btn">Voir le restaurant</button>
+					</a>
+				</div>
 
 				</div>
 			</div>
