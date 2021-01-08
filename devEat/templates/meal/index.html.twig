@@ -9,7 +9,7 @@
 		{% for meal in meals %}
 
 			<div class="card mb-5" style="width: 24rem; border: none;">
-				<img src="{{ meal.picture }}" class="card-img-top" alt="">
+				<img src="{{ asset('uploads/' ~ meal.picture) }}" class="card-img-top" alt="">
 				<div class="card-body">
 					<center>
 						<h5>{{ meal.name }} {{meal.Price}} €</h5>
