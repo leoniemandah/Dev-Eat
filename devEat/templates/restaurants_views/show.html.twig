@@ -8,16 +8,16 @@
 			<p class="lead">Découvrez nos plats</p>
 		</br>
 		<h5>{{restaurant.user.address}}</h5>
-
-	</div></center>
+		</div>
+	</center>
 </div>
 
 
-
 <div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
-{% for meal in restaurant.meals %}
+	{% for meal in restaurant.meals %}
 
-	<div class="card mb-5" style="width: 24rem; border: none;">
+		<div class="card mb-5" style="width: 24rem; border: none;">
+
 
 		<figure>
 			<img src="{{ asset('uploads/' ~ meal.picture) }}"  class="card-img-top" alt="">
@@ -26,16 +26,20 @@
 			</figcaption>
 		</figure>
 
-		<div class="card-body">
 
-			<center>
-				<h5>{{ meal.name }}</h5>
-			</center>
-			<div class="flexButton">
-				<button type="button" class="btn">Acheter</button>
+			<div class="card-body">
+
+				<center>
+					<h5>{{ meal.name }}</h5>
+				</center>
+				<div class="flexButton">
+					<a href="{{ path('meal_views', {'id':meal.id}) }}">
+						<button type="button" class="btn">Voir le détail du plat</button>
+					</a>
+				</div>
+
 			</div>
-
 		</div>
-	</div>
-	<br/>
-{% endfor %}</div>{% endblock %}
+		<br/>
+	{% endfor %}
+</div>{% endblock %}
