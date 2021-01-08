@@ -1,3 +1,7 @@
+body{
+  background-color: rgb(233, 224, 224);
+}
+
 #top{
     background-color: #585455;
     padding-top: 0;
@@ -228,6 +232,110 @@ main{
       margin-top: 6px;
 
     }
+
+
+
+
+    body {
+      font-family: "Montserrat";
+      margin: 0;
+      padding: 0;
+      margin: auto; /* On centre le contenu à l'intérieur, mais le thème le fera ou le container, c'est pour simuler ici */
+      
+     
+    }
+
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    .image-with-text {
+      display: flex; /* L'élément devient flexible permettant l'utilistion des propriétés flexibles */
+      justify-content: space-between; /* Les deux éléments (texte, image) seront séparés d'un espace égal, remplissant le cadre */
+      align-items: center; /* Les deux éléments seront verticalement alignés */
+      width: 100%; /* Prendre toute la largeur disponible */
+      max-width: 1200px; /* Au delà, le rendu sera peu esthéthique. */
+      margin: auto; /* Centrer le contenu horizonntalement */
+    }
+    
+    .image-side {
+      display: flex; /* L'élément devient flexible permettant l'utilistion des propriétés flexibles */
+      width: auto;
+     padding-top: 20px;
+     height: 300px;
+     padding-left: 80px;
+    }
+    
+    .text-side {
+      display: flex; /* L'élément devient flexible permettant l'utilistion des propriétés flexibles */
+      width: calc(
+        50% - 2em
+          ); /* L'élément prendra 50% du conteneur - 5em de largeur, laissant un espace bon entre texte et image */
+    }
+    
+    .text-side-inline {
+      display: inline-block; /* Permet le retour à la ligne automatique entre les éléments */
+      padding-right: 120px;
+      padding-top: 20px;
+      
+      
+    }
+    
+    .text-side-title {
+      color: #202022; /* Le texte du titre sera coloré en bleu océan */
+      font-weight: bold; /* Le texte du titre sera gras */
+      font-size: 20px; /* Le texte fera 20px de taille, un peu plus grand que la description */
+    }
+    
+    .text-side-desc {
+      color: #58595b; /* Le texte sera grisé */
+      font-size: 16px; /* Le texte fera 16px de taille, un peu plus petit que le titre */
+    }
+    
+    .text-side-button {
+      transition: 0.3s all; /* Pour un hover smooth */
+      background: #585455; /* Couleur de fond bleutée */
+      padding: 15px 30px; /* Le bouton englobe son contenu avec 15px d'espacement vertical, et 30px horizontal. */
+      color: #fff; /* Le texte contenu sera blanc */
+      width: max-content; /* La largeur du bouton sera le texte + l'espacement */
+      max-width: 100%; /* On évite les débordements si le texte est trop long, limite à 100% */
+      border-radius:10px;
+    }
+    
+    .text-side-button:hover {
+      transition: 0.3s all; /* Pour un hover smooth */
+      transform: translate(10px); /* Léger décalage pour le style */
+      opacity: 0.8; /* Léger flash pour montrer que l'élément est sélectionné */
+    }
+    
+    
+    @media (max-width: 768px) {
+      .image-with-text {
+        justify-content: center;
+        width: auto;
+        flex-direction: column;
+        padding: 30px;
+      }
+    
+      .image-side {
+        width: auto;
+      }
+    
+      .image-side img {
+        max-width: 100%;
+      }
+      
+      .text-side {
+        width: auto;
+      }
+    }
+    
+
+
+
+
     
 
     
