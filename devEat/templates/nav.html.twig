@@ -32,6 +32,7 @@
               {% endif %}
               {% else %}  
                 <a href="{{ path('user_show', {'id': app.user.id}) }}">Profil</a>
+                <a href="{{path('panier')}}"><img style="width: 25px;" src="{{ asset('image/' ~ 'shopping-cart.png') }}" alt="panier"></img></a>
             {% endif %}
             <li class="nav-item">
               <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>

@@ -32,7 +32,7 @@
 				<h5>{{ meal.name }}</h5>
 			</center>
 			<div class="flexButton">
-				<button type="button" class="btn">Acheter</button>
+				<button type="button" class="btn"><a href="{{ path('panier_add' , {'id' : meal.id }) }}" >Acheter</a></button>
 			</div>
 
 		</div>

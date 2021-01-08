@@ -156,7 +156,7 @@ main{
       margin-right:auto;
       justify-content:center;
       align-items:center;
-     
+      margin-bottom: -3vw;
     }
     
     .image-texte{
@@ -167,6 +167,7 @@ main{
       margin-right:auto;
       justify-content:center;
       align-items:center;
+      margin-bottom: -8vw;
     
       
     }
