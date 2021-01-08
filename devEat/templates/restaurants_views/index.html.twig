@@ -12,10 +12,10 @@
 
 		{% for restaurant in restaurants %}
 			<div class="card mb-5" style="width: 24rem; border: none;">
-				<a href="{{ path('restaurant_show', {'id':restaurant.id}) }}"><img src="{{ restaurant.logo }}" class="card-img-top" alt="..."></a>
+				<a href="{{ path('restaurant_show', {'id':restaurant.id}) }}"><img src="{{ asset('uploads/' ~ restaurant.logo) }}"​ class="card-img-top" alt="..."></a>
 				<div class="card-body">
 					<h5 class="card-title">{{ restaurant.name }}
-						({{restaurant.address}}
+						({{restaurant.user.address}}
 						)</h5>
 					<p class="card-text">Les frais de livraison: 2,5€ . 10-20min</p>
 					<div class="flexButton">

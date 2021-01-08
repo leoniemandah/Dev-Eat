@@ -37,6 +37,10 @@ body{
   justify-content: space-around;
 }
 
+#meal{
+  justify-content: space-around;
+}
+
 nav img{
   width: 7vw;
 }
@@ -64,8 +68,7 @@ figure figcaption h5{
   background-color:rgb(32, 31, 31, 0.9);
   top: 13vw;
   right:3px;
-  padding: 1 1vw;
-  padding-bottom: 1vw; 
+  padding-bottom: 5px; 
   border-radius: 10px;
   color:white ;
   font-size: medium;
@@ -209,7 +212,7 @@ main{
     form div input{
       border-radius: 10px;
       border: solid 1px black;
-      width: 20vw;
+      width: 23vw;
       padding: 5px;
     }
 

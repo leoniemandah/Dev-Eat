@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Meal;
 use App\Form\UserType;
 use App\Entity\Restaurant;
 use App\Entity\User;
+use App\Form\MealType;
 use App\Form\RestaurantType;
 use App\Repository\RestaurantRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -88,6 +91,17 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /**@var UploadedFile  */
+            $file =$form->get('LogoFile')->getData();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension() ;
+            $file->move(
+                $this->getParameter('upload_dir'),
+                $filename
+            );
+            
+            $restaurant->setLogo($filename);
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_restaurants');
@@ -118,8 +132,9 @@ class AdminController extends AbstractController
      */
     public function User(UserRepository $userRepository): Response
     {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+        $clients = $userRepository->findByRole('[]');
+        return $this->render('admin/client.html.twig', [
+            'clients' => $clients
         ]);
     }
 
@@ -207,5 +222,61 @@ class AdminController extends AbstractController
 
         }        
         return $this->redirectToRoute('admin_users');
+    }
+
+
+    /**
+     * @Route("/Meal/{id}", name="admin_meal_show", methods={"GET"})
+     */
+    public function show(Meal $meal): Response
+    {
+        return $this->render('meal/show.html.twig', [
+            'meal' => $meal,
+        ]);
+    }
+
+
+    /**
+     * @Route("/Meal/{id}/edit", name="admin_meal_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Meal $meal): Response
+    {
+        $form = $this->createForm(MealType::class, $meal);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /**@var UploadedFile  */
+            $file =$form->get('PictureFile')->getData();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension() ;
+            $file->move(
+                $this->getParameter('upload_dir'),
+                $filename
+            );
+
+            $meal->setPicture($filename);
+
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('dev_eat');
+        }
+
+        return $this->render('meal/edit.html.twig', [
+            'meal' => $meal,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/Meal/{id}", name="admin_meal_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Meal $meal): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$meal->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($meal);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('dev_eat');
     }
 }

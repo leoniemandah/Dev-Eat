@@ -23,7 +23,7 @@
     <div class="card-body">
         <p class="card-text text-center">Consulter ou modifier les informations de votre restaurant</p>
         <div style="display: flex; flex-direction: column; justify-content: center;">
-            <a style="background-color: #585455;color: white;" href="{{ path('restaurant_show', {'id': user.restaurant.id}) }}" class="btn mb-3 mt-3">Voir votre restaurant</a>
+            <a style="background-color: #585455;color: white;" href="{{ path('crud_restaurant_show', {'id': user.restaurant.id}) }}" class="btn mb-3 mt-3">Voir votre restaurant</a>
             <a style="background-color: #585455;color: white;" href="{{ path('restaurant_edit', {'id': user.restaurant.id}) }}" class="btn mb-3 mt-3">Modifier votre restaurant</a>
         </div>
     </div>

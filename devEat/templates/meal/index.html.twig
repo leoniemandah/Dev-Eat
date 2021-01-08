@@ -1,42 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Meal index{% endblock %}
+{% block title %}Tous vos plats{% endblock %}
 
 {% block body %}
-    <h1>Meal index</h1>
+    <h1  class="text-center mt-5 mb-5">Tous vos plats</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Picture</th>
-                <th>Price</th>
-                <th>Note</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for meal in meals %}
-            <tr>
-                <td>{{ meal.id }}</td>
-                <td>{{ meal.Name }}</td>
-                <td>{{ meal.Picture }}</td>
-                <td>{{ meal.Price }}</td>
-                <td>{{ meal.Note }}</td>
-                <td>
-                    <a href="{{ path('meal_show', {'id': meal.id}) }}">show</a>
-                    <a href="{{ path('meal_edit', {'id': meal.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	<div style="display: flex;justify-content:space-evenly;flex-wrap: wrap;">
+		{% for meal in meals %}
 
-    <a href="{{ path('meal_new', {'id': restaurant.id}) }}">Create new</a>
+			<div class="card mb-5" style="width: 24rem; border: none;">
+				<img src="{{ asset('uploads/' ~ meal.picture) }}" class="card-img-top" alt="">
+				<div class="card-body">
+					<center>
+						<h5>{{ meal.name }} {{meal.Price}} €</h5>
+                        <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('meal_show', {'id': meal.id}) }}">Voir le plat</a>
+                        <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('meal_edit', {'id': meal.id}) }}">Modifier le plat</a>
+                        {{ include('meal/_delete_form.html.twig') }}
+                    </center>
+				</div>
+			</div>
+			<br/>
+             {% else %}
+           <p>Il n'y a aucun plat proposé pour le moment</p>
+		{% endfor %}
+	</div>
 
+
+        <div style="display: flex;flex-direction: column;align-items: center;">
+            <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('crud_restaurant_show',{'id': restaurant.id}) }}">Retour à la liste</a>
+            <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('meal_new', {'id': restaurant.id}) }}">Ajouter un plat</a>        
+        </div>
 {% endblock %}
+
+

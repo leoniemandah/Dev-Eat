@@ -6,6 +6,7 @@ use App\Entity\Meal;
 use App\Form\MealType;
 use App\Repository\RestaurantRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,6 +32,15 @@ class MealController extends AbstractController
             $meal->setRestaurant($restaurant);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /**@var UploadedFile  */
+            $file =$form->get('PictureFile')->getData();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension() ;
+            $file->move(
+                $this->getParameter('upload_dir'),
+                $filename
+            );
+
+            $meal->setPicture($filename);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($meal);
             $entityManager->flush();
@@ -66,6 +76,15 @@ class MealController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /**@var UploadedFile  */
+            $file =$form->get('PictureFile')->getData();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension() ;
+            $file->move(
+                $this->getParameter('upload_dir'),
+                $filename
+            );
+
+            $meal->setPicture($filename);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('dev_eat');

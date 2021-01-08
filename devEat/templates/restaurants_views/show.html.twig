@@ -3,13 +3,11 @@
 {% block body %}
 
 	<div class="jumbotron jumbotron-fluid">
-		<center>
-			<div class="container">
-				<h1 class="display-4">{{restaurant.name}}</h1>
-				<p class="lead">Découvrez nos plats</p>
-			</br>
-			<h5>{{restaurant.address}}</h5>
-
+		<center><div class="container">
+			<h1 class="display-4">{{restaurant.name}}</h1>
+			<p class="lead">Découvrez nos plats</p>
+		</br>
+		<h5>{{restaurant.user.address}}</h5>
 		</div>
 	</center>
 </div>
@@ -20,12 +18,14 @@
 
 		<div class="card mb-5" style="width: 24rem; border: none;">
 
-			<figure>
-				<img src="{{ meal.picture }}" class="card-img-top" alt="">
-				<figcaption>
-					<h5>{{ meal.price }}€</h5>
-				</figcaption>
-			</figure>
+
+		<figure>
+			<img src="{{ asset('uploads/' ~ meal.picture) }}"  class="card-img-top" alt="">
+			<figcaption>
+				<h5>{{ meal.price }}€</h5>
+			</figcaption>
+		</figure>
+
 
 			<div class="card-body">
 

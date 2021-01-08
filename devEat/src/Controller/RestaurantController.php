@@ -8,6 +8,7 @@ use App\Form\RestaurantType;
 use App\Repository\MealRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -58,11 +59,19 @@ class RestaurantController extends AbstractController
             $restaurant->setUser($user);
     
             if ($form->isSubmitted() && $form->isValid()) {
+                /**@var UploadedFile  */
+                $file =$form->get('LogoFile')->getData();
+                $filename = md5(uniqid()) . '.' . $file->guessExtension() ;
+                $file->move(
+                    $this->getParameter('upload_dir'),
+                    $filename
+                );
+                $restaurant->setLogo($filename);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($restaurant);
                 $entityManager->flush();
     
-                return $this->redirectToRoute('restaurant');
+                return $this->redirectToRoute('dev_eat');
             }
         
         
@@ -76,7 +85,7 @@ class RestaurantController extends AbstractController
 
 
     /**
-     * @Route("/{id}", name="restaurant_show", methods={"GET"})
+     * @Route("/{id}", name="crud_restaurant_show", methods={"GET"})
      */
     public function show(Restaurant $restaurant): Response
     {
@@ -94,6 +103,15 @@ class RestaurantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /**@var UploadedFile  */
+            $file =$form->get('LogoFile')->getData();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension() ;
+            $file->move(
+                $this->getParameter('upload_dir'),
+                $filename
+            );
+
+            $restaurant->setLogo($filename);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('dev_eat');
