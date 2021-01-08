@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Restaurant;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,7 +15,10 @@ class RestaurantType extends AbstractType
     {
         $builder
             ->add('Name', TextType::class, ['label' => 'Nom'])
-            ->add('Logo')
+            ->add('LogoFile', FileType::class, [
+                'label' => "Choisissez une image",
+                'mapped' => false
+            ])
         ;
     }
 

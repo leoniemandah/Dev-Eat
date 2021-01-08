@@ -20,7 +20,7 @@
 	<div class="card mb-5" style="width: 24rem; border: none;">
 
 		<figure>
-			<img src="{{ meal.picture }}" class="card-img-top" alt="">
+			<img src="{{ asset('uploads/' ~ meal.picture) }}"  class="card-img-top" alt="">
 			<figcaption>
 				<h5>{{ meal.price }}€</h5>
 			</figcaption>
