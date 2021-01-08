@@ -48,5 +48,5 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/user, roles: ROLE_USER }
-       - { path: ^/crudRestaurant, roles: ROLE_RESTAURANT }
+        - { path: ^/crudRestaurant, roles: ROLE_RESTAURANT }
 
