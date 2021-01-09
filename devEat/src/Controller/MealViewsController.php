@@ -20,6 +20,19 @@ class MealViewsController extends AbstractController
             'meal' => $meal,
         ]);
     }
+
+     /**
+     * @Route("/meal/views", name="meal_b")
+     */
+    public function burger(MealRepository $mealRepository): Response
+    {
+        $meal = $mealRepository->findByCategory();
+        return $this->render('meal_views/burger.html.twig', [
+            'controller_name' => 'MealViewsController',
+            'meal' => $meal,
+        ]);
+    }
+
 }
 
 
