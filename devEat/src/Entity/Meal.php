@@ -50,7 +50,7 @@ class Meal
     private $orderMeals;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, columnDefinition="ENUM('burger', 'pizza', 'chinois')"))
      */
     private $Category;
 
