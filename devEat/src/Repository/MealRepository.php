@@ -30,10 +30,11 @@ class MealRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findByCategory()
+    public function findByCategory($name)
     {
-        return $this->createQueryBuilder('b')
-            ->andWhere("b.category LIKE :burger")
+        return $this->createQueryBuilder('m')
+            ->andWhere("m.Category = :name")
+            ->setParameter('name', $name)
             ->getQuery()
             ->getResult();
     }

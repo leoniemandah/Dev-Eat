@@ -15,7 +15,7 @@
 	<div class="image-texte">
  	<div class="texte"><p>Vous souhaitez manger un vrai bon burger avec des produits locaux ? Venez regarder nos meilleurs restaurants</p>
 	    <div class="flexButton">
-		<a href="{{ path('meal_b')}}"><button type="button" class="btn">Regardez nos burgers</button></a>
+		<a href="{{ path('meal',{'category': 'burger'})}}"><button type="button" class="btn">Regardez nos burgers</button></a>
 		</div>
 
 
@@ -27,7 +27,7 @@
  		<div class="image"><img src="{{ asset('image/' ~ 'hm.webp') }}"></div>
  		<div class="texte"><p>Un plat asiatique vous tente : nems sushi etc. N'hésitez plus et venez voir nos meilleurs restaurants</p>
  			<div class="flexButton">
- 				<button type="button" class="btn">Regardez nos plats asiatiques</button>
+ 			<a href="{{ path('meal',{'category': 'chinois'})}}"><button type="button" class="btn">Regardez nos plats asiatiques</button></a>
 			</div>
 		</div>
  	</div>
@@ -35,7 +35,7 @@
 	<div class="image-texte">
  	<div class="texte"><p>Une bonne pizza italienne ne vous fais envie ? Je suis sur que si ! Alors venez regarder nos meilleurs restaurants</p>
 	    <div class="flexButton">
-			<button type="button" class="btn">Regardez nos pizzas</button>
+			<a href="{{ path('meal',{'category': 'pizza'})}}"><button type="button" class="btn">Regardez nos pizzas</button></a>
 		</div>
 	</div>
 	<div class="image"><img src="{{ asset('image/' ~ 'kl.webp') }}"></div>
