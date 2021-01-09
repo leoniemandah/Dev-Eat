@@ -2,18 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Meal;
 use App\Entity\Order;
+use App\Entity\OrderMeal;
 use App\Entity\User;
 use App\Repository\MealRepository;
 use App\Repository\UserRepository;
-use DateTime;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
 * @Route("/user")
@@ -23,7 +23,7 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier", name="panier")
      */
-    public function index(SessionInterface $session, MealRepository $mealRepository): Response
+    public function index(SessionInterface $session, MealRepository $mealRepository, UserInterface $user): Response
     {
         $panier = $session->get('panier', []);
 
@@ -99,13 +99,6 @@ class PanierController extends AbstractController
 
         $panierWithData = [];
 
-        foreach($panier as $id => $quantity){
-            $panierWithData[] = [
-                'meal' => $mealRepository->find($id),
-                'quantity' => $quantity
-            ];
-        }
-
         $order->setUser($user);
 
         $order->setStatus(1);
@@ -114,15 +107,24 @@ class PanierController extends AbstractController
 
         $order->setDeliveryHour(date_modify(new \DateTime('now'),'+1 hour'));
 
+        foreach($panier as $id => $quantity){
+            $panierWithData[] = [
+                'meal' => $Meals = $mealRepository->find($id),
+                'quantity' => $quantity
+            ];
+            $orderMeal = new OrderMeal;
+            $orderMeal->setMeal($Meals);
+            $orderMeal->setOrderId($order);
+            $orderMeal->setQuantity($quantity);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($orderMeal);
+        }
+
         
+          
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($order);
         $entityManager->flush();
-
-        return $this->redirectToRoute('dev_eat');
-
-
-
     
     }
 }
