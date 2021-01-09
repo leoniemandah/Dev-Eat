@@ -2,7 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Meal;
+use App\Entity\Order;
+use App\Entity\User;
 use App\Repository\MealRepository;
+use App\Repository\UserRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +32,7 @@ class PanierController extends AbstractController
         foreach($panier as $id => $quantity){
             $panierWithData[] = [
                 'meal' => $mealRepository->find($id),
-                'quantity' => $quantity
+                'quantity' => $quantity,
             ];
         }
 
@@ -41,14 +46,14 @@ class PanierController extends AbstractController
 
         return $this->render('panier/index.html.twig', [
             'items' => $panierWithData,
-            'total' => $total
+            'total' => $total,
             ]);
     }
 
     /**
      * @Route("/panier/add/{id}", name="panier_add")
      */
-    public function add($id, SessionInterface $session )
+    public function add($id, SessionInterface $session)
     {
 
         $panier = $session->get('panier', []);
@@ -70,7 +75,6 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier/remove/{id}" , name="panier_delete")
      */
-
      public function delete (SessionInterface $session, $id){
         $panier = $session->get('panier', []);
 
@@ -82,4 +86,43 @@ class PanierController extends AbstractController
 
         return $this->redirectToRoute("panier");
      }
+
+
+     /**
+     * @Route("/{id}/order" , name="panier_order")
+     */
+     public function order(SessionInterface $session, MealRepository $mealRepository,User $user)
+     {
+         $order = new Order;
+         
+         $panier = $session->get('panier', []);
+
+        $panierWithData = [];
+
+        foreach($panier as $id => $quantity){
+            $panierWithData[] = [
+                'meal' => $mealRepository->find($id),
+                'quantity' => $quantity
+            ];
+        }
+
+        $order->setUser($user);
+
+        $order->setStatus(1);
+
+        $order->setOrderHour(new \DateTime('now'));
+
+        $order->setDeliveryHour(date_modify(new \DateTime('now'),'+1 hour'));
+
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($order);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('dev_eat');
+
+
+
+    
+    }
 }

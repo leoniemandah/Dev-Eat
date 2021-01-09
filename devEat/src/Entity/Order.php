@@ -21,12 +21,12 @@ class Order
     private $id;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $OrderHour;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
     private $DeliveryHour;
 
@@ -41,13 +41,16 @@ class Order
     private $User;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Meal::class, inversedBy="orders")
+     * @ORM\OneToMany(targetEntity=OrderMeal::class, mappedBy="OrderId")
      */
-    private $Meal;
+    private $orderMeals;
+
+
 
     public function __construct()
     {
         $this->Meal = new ArrayCollection();
+        $this->orderMeals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -104,26 +107,35 @@ class Order
     }
 
     /**
-     * @return Collection|Meal[]
+     * @return Collection|OrderMeal[]
      */
-    public function getMeal(): Collection
+    public function getOrderMeals(): Collection
     {
-        return $this->Meal;
+        return $this->orderMeals;
     }
 
-    public function addMeal(Meal $meal): self
+    public function addOrderMeal(OrderMeal $orderMeal): self
     {
-        if (!$this->Meal->contains($meal)) {
-            $this->Meal[] = $meal;
+        if (!$this->orderMeals->contains($orderMeal)) {
+            $this->orderMeals[] = $orderMeal;
+            $orderMeal->setOrderId($this);
         }
 
         return $this;
     }
 
-    public function removeMeal(Meal $meal): self
+    public function removeOrderMeal(OrderMeal $orderMeal): self
     {
-        $this->Meal->removeElement($meal);
+        if ($this->orderMeals->removeElement($orderMeal)) {
+            // set the owning side to null (unless already changed)
+            if ($orderMeal->getOrderId() === $this) {
+                $orderMeal->setOrderId(null);
+            }
+        }
 
         return $this;
     }
+
+   
+
 }

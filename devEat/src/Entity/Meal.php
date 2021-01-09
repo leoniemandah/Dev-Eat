@@ -35,7 +35,7 @@ class Meal
     private $Price;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer",nullable=true)
      */
     private $Note;
 
@@ -45,13 +45,21 @@ class Meal
     private $Restaurant;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Order::class, mappedBy="Meal")
+     * @ORM\OneToMany(targetEntity=OrderMeal::class, mappedBy="Meal")
      */
-    private $orders;
+    private $orderMeals;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Category;
+
+
 
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->orderMeals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,29 +128,46 @@ class Meal
     }
 
     /**
-     * @return Collection|Order[]
+     * @return Collection|OrderMeal[]
      */
-    public function getOrders(): Collection
+    public function getOrderMeals(): Collection
     {
-        return $this->orders;
+        return $this->orderMeals;
     }
 
-    public function addOrder(Order $order): self
+    public function addOrderMeal(OrderMeal $orderMeal): self
     {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->addMeal($this);
+        if (!$this->orderMeals->contains($orderMeal)) {
+            $this->orderMeals[] = $orderMeal;
+            $orderMeal->setMeal($this);
         }
 
         return $this;
     }
 
-    public function removeOrder(Order $order): self
+    public function removeOrderMeal(OrderMeal $orderMeal): self
     {
-        if ($this->orders->removeElement($order)) {
-            $order->removeMeal($this);
+        if ($this->orderMeals->removeElement($orderMeal)) {
+            // set the owning side to null (unless already changed)
+            if ($orderMeal->getMeal() === $this) {
+                $orderMeal->setMeal(null);
+            }
         }
 
         return $this;
     }
+
+    public function getCategory(): ?string
+    {
+        return $this->Category;
+    }
+
+    public function setCategory(string $Category): self
+    {
+        $this->Category = $Category;
+
+        return $this;
+    }
+
+
 }
