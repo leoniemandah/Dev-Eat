@@ -29,5 +29,13 @@ class MealRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function findByCategory()
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere("b.category LIKE :burger")
+            ->getQuery()
+            ->getResult();
+    }
    
 }
