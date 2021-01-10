@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Repository\MealRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
+use Mailgun\Mailgun;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -126,5 +127,22 @@ class PanierController extends AbstractController
         $entityManager->persist($order);
         $entityManager->flush();
     
+
+
+
+        $mgClient = Mailgun::create('');
+        $domain = "";
+        $params = array(
+            'from'    => 'Excited User <johanna.dezarnaud@ynov.com>',
+            'to'      => 'johanna.dezarnaud@ynov.com',
+            'subject' => 'Votre commande',
+            'text'    => 'Vous avez commande $quantity meals'
+        );
+        $mgClient->messages()->send($domain,$params);
+
+        return $this->redirectToRoute("panier");
     }
+
+
+    
 }
