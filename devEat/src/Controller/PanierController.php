@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Mailgun\Mailgun;
+
 /**
 * @Route("/user")
 **/
@@ -120,27 +120,11 @@ class PanierController extends AbstractController
             $entityManager->persist($orderMeal);
         }
 
-
+        
           
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($order);
         $entityManager->flush();
-
-
-        $mgClient = Mailgun::create('677d02a4635aabcf08b62981c0a299a9-3d0809fb-4e5cd390');
-        $domain = "sandboxbf5627f64f234e8aa7a9998107996e47.mailgun.org";
-        $params = array(
-            'from'    => 'Excited User <johanna.dezarnaud@ynov.com>',
-            'to'      => 'johanna.dezarnaud@ynov.com',
-            'subject' => 'Votre commande',
-            'text'    => 'Vous avez commande $quantity meals'
-        );
-        $mgClient->messages()->send($domain,$params);
     
-        return $this->redirectToRoute("panier");
-
     }
-
-
-
 }
