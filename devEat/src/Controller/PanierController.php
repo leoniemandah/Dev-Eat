@@ -126,9 +126,6 @@ class PanierController extends AbstractController
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($order);
         $entityManager->flush();
-    
-
-
 
         $mgClient = Mailgun::create('');
         $domain = "";
@@ -141,6 +138,7 @@ class PanierController extends AbstractController
         $mgClient->messages()->send($domain,$params);
 
         return $this->redirectToRoute("panier");
+
     }
 
 
