@@ -5,10 +5,12 @@
 {% block body %}
 
 <body>
-  <div class="image-with-text">
-    <div class="image-side">
-      <img src="{{meal.picture}}">
-    </div>
+
+<div style="display: flex; justify-content: space-around;" class="mt-5">
+
+<div>
+      <img style="width: 30vw;" src="{{ asset('uploads/' ~ meal.picture) }}">
+</div>
 
     <div class="text-side">
       <div class="text-side-inline">
@@ -27,7 +29,8 @@
         </a>
       </div>
     </div>
-  </div>
+</div>
+
 </body>
 
 {% endblock %}
