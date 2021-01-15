@@ -15,14 +15,16 @@
     {% endif %}
 
     <h1 class="h3 mb-3 mt-3 text-center font-weight-normal">Connectez-vous</h1>
+    <div style="display: flex;justify-content: stretch;margin-bottom: 2vw;flex-direction: column;width: 30vw;margin-right: none;margin: auto;">
     <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
+    <input style="margin-bottom: 1vw;" type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
     <label for="inputPassword">Mot de passe</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
+    </div>
     <div style="display:flex, justify-content:center;">
     <button style="background: #585455;color: white;" class="btn btn-lg mt-5 " type="submit">
     Connectez-vous    
