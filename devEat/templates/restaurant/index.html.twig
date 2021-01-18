@@ -4,7 +4,7 @@
 
 {% block body %}
     <h1 class="text-center mt-5 mb-5">Tous les restaurants</h1>
-    <div style="display: flex; justify-content: space-around;">
+    <div style="display: flex; justify-content: space-around;flex-wrap:wrap">
         {% for restaurant in restaurants %}
     
         <div class="card border-dark mb-5" style="max-width: 23rem;">

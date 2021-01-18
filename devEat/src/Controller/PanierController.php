@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Repository\MealRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
+use Laminas\Code\Generator\DocBlock\Tag\ReturnTag;
 use Mailgun\Mailgun;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,20 +54,41 @@ class PanierController extends AbstractController
     /**
      * @Route("/panier/add/{id}", name="panier_add")
      */
-    public function add($id, SessionInterface $session)
+    public function add(int $id, SessionInterface $session, MealRepository $mealRepository)
     {
-
         $panier = $session->get('panier', []);
 
-    
-        if(!empty($panier[$id])){
-            $panier[$id]++;
+        if(empty($panier)){  
+            $panier[$id] = 1 ;          
         }
+        else if(!empty($panier[$id])){  
+        $restoPanier = $mealRepository->find($id)->getRestaurant()->getId();
+
+        $RestoOrder = $mealRepository->find(array_key_first($panier))->getRestaurant()->getId();
+            if($restoPanier === $RestoOrder ){
+                $panier[$id]++;
+            }
+            else{
+                return $this->redirectToRoute('restaurants_views');
+            }
+        }
+
         else{
-            $panier[$id] = 1 ;
+            $restoPanier = $mealRepository->find($id)->getRestaurant()->getId();
+
+            $RestoOrder = $mealRepository->find(array_key_first($panier))->getRestaurant()->getId();
+
+            if($restoPanier === $RestoOrder ){
+                $panier[$id] = 1 ;          
+
+            }
+            else{
+                return $this->redirectToRoute('restaurants_views');
+            }
         }
 
         $session->set('panier', $panier);
+
 
         return $this->redirectToRoute('panier');
 
@@ -119,8 +141,6 @@ class PanierController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($orderMeal);
         }
-
-
           
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($order);
@@ -129,16 +149,16 @@ class PanierController extends AbstractController
         $mgClient = Mailgun::create('');
         $domain = "";
         $params = array(
-            'from'    => 'Excited User <johanna.dezarnaud@ynov.com>',
-            'to'      => 'johanna.dezarnaud@ynov.com',
+            'from'    => 'Excited User <johanna.dezarnaud@orange.fr>',
+            'to'      => 'johanna.dezarnaud@orange.fr',
             'subject' => 'Votre commande',
-            'text'    => 'Vous avez commande $quantity meals'
+            'text'    => 'Vous avez commandé',
+            'html'    => '<html><h2>test {{{quantity}}}<h2></html>',
         );
         $mgClient->messages()->send($domain,$params);
+        
+        $session->clear();
 
         return $this->redirectToRoute("panier");
     }
-
-
-    
 }
