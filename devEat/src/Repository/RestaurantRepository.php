@@ -27,5 +27,5 @@ class RestaurantRepository extends ServiceEntityRepository
             return (int) $qb->getQuery()->getSingleScalarResult();
 
     }
-   
+
 }
