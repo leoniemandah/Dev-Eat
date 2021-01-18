@@ -10,10 +10,10 @@
             <img src="{{ asset('uploads/' ~ restaurant.logo) }}" class="card-img-top" alt="{{restaurant.name}}">
             <div class="card-body">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Nom prénom du propriétaire : {{restaurant.user.FirstName}} {{restaurant.user.LastName}}</li>
+                    <li class="list-group-item">Nom et prénom du propriétaire : {{restaurant.user.FirstName}} {{restaurant.user.LastName}}</li>
                     <li class="list-group-item">Email : {{restaurant.user.email}}</li>
-                    <li class="list-group-item">Role : {{restaurant.user.roles ? restaurant.user.roles|json_encode : '' }}</li>
-                    <li class="list-group-item">Address : {{restaurant.user.Address}}</li>
+                    <li class="list-group-item">Rôle : {{restaurant.user.roles ? restaurant.user.roles|json_encode : '' }}</li>
+                    <li class="list-group-item">Adresse : {{restaurant.user.Address}}</li>
                     <li class="list-group-item">Solde : {{restaurant.user.solde}} €</li>
                 </ul> 
                 <div style="display: flex;flex-direction: column;align-items: center;">

@@ -11,10 +11,10 @@
         <div class="card-header">Restaurant : {{restaurant.id}}</div>
         <div class="card-body text-dark">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">Nom prénom du propriétaire : {{restaurant.user.FirstName}} {{restaurant.user.LastName}}</li>
+            <li class="list-group-item">Nom et prénom du propriétaire : {{restaurant.user.FirstName}} {{restaurant.user.LastName}}</li>
             <li class="list-group-item">Email : {{restaurant.user.email}}</li>
-            <li class="list-group-item">Role : {{restaurant.user.roles ? restaurant.user.roles|json_encode : '' }}</li>
-            <li class="list-group-item">Address : {{restaurant.user.Address}}</li>
+            <li class="list-group-item">Rôle : {{restaurant.user.roles ? restaurant.user.roles|json_encode : '' }}</li>
+            <li class="list-group-item">Adresse : {{restaurant.user.Address}}</li>
             <li class="list-group-item">Solde : {{restaurant.user.solde}} €</li>
             <li class="list-group-item">Nom du restaurant : {{restaurant.name}}</li>
         </ul>    
@@ -26,7 +26,7 @@
         </div>
         </div>
          {% else %}
-           <p>Aucun restaurant n'est Inscrit</p>
+           <p>Aucun restaurant n'est inscrit</p>
         {% endfor %}
         </div>
        
