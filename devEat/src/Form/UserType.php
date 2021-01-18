@@ -24,8 +24,7 @@ class UserType extends AbstractType
             ->add('roles',ChoiceType::class,
             array('choices' => array(
                     'Utilisateur' => 'ROLE_USER',
-                    'Restaurateur' => 'ROLE_RESTAURANT',
-                    'admin' => 'ROLE_ADMIN'),
+                    'Restaurateur' => 'ROLE_RESTAURANT'),
                     'multiple'=>true,
                     'expanded'=>true,
                     'label' => 'Qui êtes vous ?'));

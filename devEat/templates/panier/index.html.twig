@@ -3,9 +3,18 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
+    {% for label, messages in app.flashes(['success', 'danger']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}" role="alert">
+            {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    
 
     {% if items | length > 0 %}
-    
+
+
     <table class="table">
 
     <thead>
@@ -34,8 +43,14 @@
     </tbody>
     <tfoot>
     <tr>
+       <td colspan="3" class="text-right">Frais de livraison</td>
+        <td>+ 2.50 €</td>
+        <td></td>
+    </tr>
+     
+    <tr>
         <td colspan="3" class="text-right">Total</td>
-        <td>{{ total }}</td>
+        <td>{{ total }} €</td>
         <td></td>
     </tr>
 
@@ -46,8 +61,9 @@
     <div style="display: flex;flex-direction: column;align-items: center;">
     <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('panier_order', {'id': app.user.id}) }}">Commander</a>
     </div>
+
     {% else %}
-        
+    <h2 class="text-center mt-5 mb-5">Votre panier est vide</h2>        
 
     {% endif %}
     

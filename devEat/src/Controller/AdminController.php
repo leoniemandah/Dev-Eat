@@ -257,7 +257,7 @@ class AdminController extends AbstractController
 
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('dev_eat');
+            return $this->redirectToRoute('admin_restaurants');
         }
 
         return $this->render('meal/edit.html.twig', [
@@ -277,6 +277,6 @@ class AdminController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('dev_eat');
+        return $this->redirectToRoute('admin_restaurants');
     }
 }

@@ -16,20 +16,21 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class MealController extends AbstractController
 {
-
-
     
     /**
      * @Route("/{id}/new", name="meal_new", methods={"GET","POST"})
      */
     public function new(int $id = 0, Request $request, RestaurantRepository $restaurantRepository): Response
     {
+
         $meal = new Meal();
         $form = $this->createForm(MealType::class, $meal);
         $form->handleRequest($request);
         $restaurant = $restaurantRepository->find($id);
-            
-            $meal->setRestaurant($restaurant);
+        $meal->setRestaurant($restaurant);
+
+        $this->denyAccessUnlessGranted('VIEW', $meal);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             /**@var UploadedFile  */
@@ -45,7 +46,7 @@ class MealController extends AbstractController
             $entityManager->persist($meal);
             $entityManager->flush();
 
-            return $this->redirectToRoute('dev_eat');
+           return $this->redirect($this->generateUrl('meal_show', [ 'id' => $meal->getId()]));
         }
 
         return $this->render('meal/new.html.twig', [
@@ -61,6 +62,8 @@ class MealController extends AbstractController
      */
     public function show(Meal $meal): Response
     {
+        $this->denyAccessUnlessGranted('VIEW', $meal);
+
         return $this->render('meal/show.html.twig', [
             'meal' => $meal,
         ]);
@@ -72,6 +75,9 @@ class MealController extends AbstractController
      */
     public function edit(Request $request, Meal $meal): Response
     {
+
+        $this->denyAccessUnlessGranted('EDIT', $meal);
+
         $form = $this->createForm(MealType::class, $meal);
         $form->handleRequest($request);
 
@@ -87,7 +93,8 @@ class MealController extends AbstractController
             $meal->setPicture($filename);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('dev_eat');
+            return $this->redirect($this->generateUrl('meal_show', [ 'id' => $meal->getId()]));
+
         }
 
         return $this->render('meal/edit.html.twig', [
@@ -101,12 +108,15 @@ class MealController extends AbstractController
      */
     public function delete(Request $request, Meal $meal): Response
     {
+        $this->denyAccessUnlessGranted('DELETE', $meal);
+
         if ($this->isCsrfTokenValid('delete'.$meal->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($meal);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('dev_eat');
+        return $this->redirect($this->generateUrl('crud_restaurant_show', [ 'id' => $meal->getRestaurant()->getId()]));
+
     }
 }

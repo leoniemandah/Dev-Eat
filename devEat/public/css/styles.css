@@ -28,7 +28,7 @@ a :hover{
 .container{
   background-color: #ece9e9;
   color: rgb(46, 45, 45);
-  font-family:fantasy ;
+  font-family:inherit; ;
   border-radius:10px ;
   padding-bottom: 10px;
 }
@@ -51,6 +51,7 @@ a :hover{
 
 #meal{
   justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 nav img{
