@@ -19,25 +19,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class RestaurantController extends AbstractController
 {
 
-    /**
-     * @Route("/{id}/Meal", name="AllMeal", methods={"GET"})
-     */
-    public function Meal(Restaurant $restaurant ,MealRepository $mealRepository){
-        
-        $meals = $mealRepository->findByRestaurantId();
-
-         return $this->render('meal/index.html.twig', [
-        'restaurant' => $restaurant,
-        'meals'=> $meals
-    ]);
-    }
+    
 
     
     /**
     * @Route("/user/{id}/profil", name="restaurant")
     */
-    public function index(User $user): Response
+    public function index( User $user): Response
     {
+        
+        $this->denyAccessUnlessGranted('VIEW', $user);
 
         return $this->render('restaurant/restaurant.html.twig', [
             'user' => $user,
@@ -55,7 +46,8 @@ class RestaurantController extends AbstractController
             $form = $this->createForm(RestaurantType::class, $restaurant);
             $form->handleRequest($request);
             $user = $userRepository->find($id);
-            
+            $this->denyAccessUnlessGranted('VIEW', $user);
+
             $restaurant->setUser($user);
     
             if ($form->isSubmitted() && $form->isValid()) {
@@ -71,9 +63,10 @@ class RestaurantController extends AbstractController
                 $entityManager->persist($restaurant);
                 $entityManager->flush();
     
-                return $this->redirectToRoute('dev_eat');
+                return $this->redirect($this->generateUrl('crud_restaurant_show', [ 'id' => $restaurant->getId()]));
+
+                
             }
-        
         
 
         return $this->render('restaurant/new.html.twig', [
@@ -89,6 +82,8 @@ class RestaurantController extends AbstractController
      */
     public function show(Restaurant $restaurant): Response
     {
+        $this->denyAccessUnlessGranted('VIEW', $restaurant);
+
         return $this->render('restaurant/show.html.twig', [
             'restaurant' => $restaurant,
         ]);
@@ -99,6 +94,7 @@ class RestaurantController extends AbstractController
      */
     public function edit(Request $request, Restaurant $restaurant): Response
     {
+        $this->denyAccessUnlessGranted('EDIT', $restaurant);
         $form = $this->createForm(RestaurantType::class, $restaurant);
         $form->handleRequest($request);
 
@@ -114,7 +110,8 @@ class RestaurantController extends AbstractController
             $restaurant->setLogo($filename);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('dev_eat');
+            return $this->redirect($this->generateUrl('crud_restaurant_show', [ 'id' => $restaurant->getId()]));
+
         }
 
         return $this->render('restaurant/edit.html.twig', [

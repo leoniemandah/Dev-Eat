@@ -39,35 +39,5 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
-
-    private $router;
-
-    public function __construct(RouterInterface $router)
-    {
-        $this->router = $router;
-    }
-
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token)
-    {
-        $roles = $token->getRoleNames();
-        $rolesTab = array_map(function ($role) {
-            return $role->getRole();
-        }, $roles);
-
-        if (in_array('ROLE_ADMIN', $rolesTab, true)) {
-            // c'est un aministrateur : on le rediriger vers l'espace admin
-            $redirection = new RedirectResponse($this->router->generate('admin'));
-        }
-        if (in_array('ROLE_RESTAURANT', $rolesTab, true)) {
-            // c'est un aministrateur : on le rediriger vers l'espace admin
-            $redirection = new RedirectResponse($this->router->generate('restaurant'));
-        }
-        else {
-            // c'est un utilisaeur lambda : on le rediriger vers l'accueil
-            $redirection = new RedirectResponse($this->router->generate('user_show'));
-        }
-
-        return $redirection;
-    }
-
+  
 }

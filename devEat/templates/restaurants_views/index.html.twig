@@ -4,6 +4,13 @@
 {% endblock %}
 
 {% block body %}
+{% for label, messages in app.flashes(['success', 'danger']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}" role="alert">
+            {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
 	<center>
 		<h1 class="mt-4 mb-5">Découvrez nos restaurants</h1>
 	</center>

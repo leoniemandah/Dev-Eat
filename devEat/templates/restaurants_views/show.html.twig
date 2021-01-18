@@ -1,7 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+{% for label, messages in app.flashes(['success', 'danger']) %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}" role="alert">
+            {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
 	<div class="jumbotron jumbotron-fluid">
 		<center><div class="container">
 			<h1 class="display-4">{{restaurant.name}}</h1>

@@ -15,8 +15,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends AbstractController
 {
-
-   
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})
      */
@@ -47,6 +45,8 @@ class UserController extends AbstractController
      */
     public function show(User $user): Response
     {
+        $this->denyAccessUnlessGranted('VIEW', $user);
+
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
@@ -57,8 +57,9 @@ class UserController extends AbstractController
      * @Route("/user/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user , UserPasswordEncoderInterface $encoder): Response
-
     {
+        $this->denyAccessUnlessGranted('EDIT', $user);
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -67,7 +68,8 @@ class UserController extends AbstractController
             $user->setPassword($hash);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('dev_eat');
+            return $this->redirect($this->generateUrl('user_show', [ 'id' => $user->getId()]));
+
         }
 
         return $this->render('user/edit.html.twig', [
@@ -81,6 +83,8 @@ class UserController extends AbstractController
      */
     public function delete(UserRepository $userRepository,Request $request, User $user, int $id = 0): Response
     {
+        $this->denyAccessUnlessGranted('DELETE', $user);
+
         $user =$userRepository->find($id);
 
         $User = $this->getUser()->getId();

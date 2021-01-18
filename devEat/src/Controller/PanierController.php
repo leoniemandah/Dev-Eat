@@ -10,10 +10,13 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Laminas\Code\Generator\DocBlock\Tag\ReturnTag;
 use Mailgun\Mailgun;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 /**
@@ -44,6 +47,8 @@ class PanierController extends AbstractController
             $total += $totalItem;
         }
 
+        $total +=2.50;
+
 
         return $this->render('panier/index.html.twig', [
             'items' => $panierWithData,
@@ -59,7 +64,7 @@ class PanierController extends AbstractController
         $panier = $session->get('panier', []);
 
         if(empty($panier)){  
-            $panier[$id] = 1 ;          
+            $panier[$id] = 1 ;      
         }
         else if(!empty($panier[$id])){  
         $restoPanier = $mealRepository->find($id)->getRestaurant()->getId();
@@ -67,30 +72,41 @@ class PanierController extends AbstractController
         $RestoOrder = $mealRepository->find(array_key_first($panier))->getRestaurant()->getId();
             if($restoPanier === $RestoOrder ){
                 $panier[$id]++;
+
             }
             else{
+                $this->addFlash( 'danger',
+                'Vous pouvez commander uniquement dans un restaurant'
+              );
                 return $this->redirectToRoute('restaurants_views');
             }
         }
-
         else{
             $restoPanier = $mealRepository->find($id)->getRestaurant()->getId();
 
             $RestoOrder = $mealRepository->find(array_key_first($panier))->getRestaurant()->getId();
 
             if($restoPanier === $RestoOrder ){
-                $panier[$id] = 1 ;          
-
+                $panier[$id] = 1 ;         
             }
             else{
+                $this->addFlash( 'danger',
+                'Vous pouvez commander uniquement dans un restaurant'
+              );
                 return $this->redirectToRoute('restaurants_views');
             }
         }
 
         $session->set('panier', $panier);
 
+        $this->addFlash(
+            'success',
+            'Votre plat a bien été enregistrée !'
+        );    
+        $restoPanier = $mealRepository->find($id)->getRestaurant()->getId();
 
-        return $this->redirectToRoute('panier');
+        return $this->redirect($this->generateUrl('restaurant_show', [ 'id' => $restoPanier]));
+
 
     }
 
@@ -113,7 +129,7 @@ class PanierController extends AbstractController
      /**
      * @Route("/{id}/order" , name="panier_order")
      */
-     public function order(SessionInterface $session, MealRepository $mealRepository,User $user)
+     public function order(SessionInterface $session, MealRepository $mealRepository,User $user, MailerInterface $mailer)
      {
          $order = new Order;
          
@@ -121,44 +137,84 @@ class PanierController extends AbstractController
 
         $panierWithData = [];
 
-        $order->setUser($user);
-
-        $order->setStatus(1);
-
-        $order->setOrderHour(new \DateTime('now'));
-
-        $order->setDeliveryHour(date_modify(new \DateTime('now'),'+1 hour'));
-
         foreach($panier as $id => $quantity){
             $panierWithData[] = [
-                'meal' => $Meals = $mealRepository->find($id),
-                'quantity' => $quantity
+                'meal' => $mealRepository->find($id),
+                'quantity' => $quantity,
             ];
-            $orderMeal = new OrderMeal;
-            $orderMeal->setMeal($Meals);
-            $orderMeal->setOrderId($order);
-            $orderMeal->setQuantity($quantity);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($orderMeal);
         }
-          
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($order);
-        $entityManager->flush();
 
-        $mgClient = Mailgun::create('');
-        $domain = "";
-        $params = array(
-            'from'    => 'Excited User <johanna.dezarnaud@orange.fr>',
-            'to'      => 'johanna.dezarnaud@orange.fr',
-            'subject' => 'Votre commande',
-            'text'    => 'Vous avez commandé',
-            'html'    => '<html><h2>test {{{quantity}}}<h2></html>',
-        );
-        $mgClient->messages()->send($domain,$params);
-        
-        $session->clear();
+        $total = 0;
+
+        foreach($panierWithData as $item){
+            $totalItem = $item['meal']->getPrice() * $item['quantity'];
+            $total += $totalItem;
+        }
+
+        $totalResto = $total;
+        $total +=2.50;
+
+        if($user->getSolde() >= $total ){
+
+            $order->setUser($user);
+
+            $order->setStatus(1);
+    
+            $order->setOrderHour(new \DateTime('now'),'+1 hour');
+    
+            $order->setDeliveryHour(date_modify(new \DateTime('now'),'+2 hour'));            
+            
+            foreach($panier as $id => $quantity){
+                $panierWithData[] = [
+                    'meal' => $Meals = $mealRepository->find($id),
+                    'quantity' => $quantity
+                ];
+                $orderMeal = new OrderMeal;
+                $orderMeal->setMeal($Meals);
+                $orderMeal->setOrderId($order);
+                $orderMeal->setQuantity($quantity);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($orderMeal);
+            }
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($order);
+                $entityManager->flush();
+
+
+                $email = (new TemplatedEmail())
+                ->from('johanna.dezarnaud@orange.fr')
+                ->to('johanna.dezarnaud@orange.fr')
+                ->subject('Commande n°'.$order->getId())
+                ->htmlTemplate('mail/commande.html.twig')
+                ->context([
+                    'order' => $order,
+                    'orderMeal' => $orderMeal,
+                    'totalResto' => $totalResto,
+                    'user' => $user,   
+                    'items' => $panierWithData,
+                    ]);
+    
+            $mailer->send($email);
+
+            $session->clear();
+         
+            $this->addFlash(
+                            'success',
+                            'Votre commande a bien été enregistrée !'
+                        );
+
+            return $this->redirectToRoute("panier");
+           
+        }
+        else{
+            $this->addFlash( 'danger',
+            'Une erreur est survenue pendant l\'enregistrement de votre commande verifier votre solde'
+          );
+        }
 
         return $this->redirectToRoute("panier");
+
+
     }
 }

@@ -1,0 +1,36 @@
+{% block body %}
+{% apply inline_css %}
+<div style="display: flex;justify-content:center ;flex-wrap: wrap;margin:1vw 0 1vw 1vw"> 
+ <img style="width: 30vw;"src="https://images.pexels.com/photos/2544829/pexels-photo-2544829.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940">
+</div>
+<h1 style="text-align: center;">Commande n°{{order.id}}</h1>
+
+    
+<div>
+<h4>Information client</h5>
+
+<p>Prénom : {{user.FirstName}}</p>
+
+<p>Nom : {{user.LastName}}</p>
+
+<p>Adresse : {{user.address}}</p>
+
+<p>La commande devra être livrer à {{order.DeliveryHour |date("H:i:s") }}</p>
+
+</div>
+
+
+<p>Recap de la commande</p>
+<div style="display: flex;justify-content: space-between;flex-wrap: wrap;margin:1vw 0 2vw 0">
+{% for item in items %}
+    <p style="margin-right: 1vw"> {{item.quantity}} {{item.meal.name}}<p>
+
+{% endfor %}
+</div>
+
+<p  style="text-align: center;">Total commande : {{totalResto}} €</p>
+
+
+{% endapply %}
+
+{% endblock %}
