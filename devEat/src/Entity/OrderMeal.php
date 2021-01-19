@@ -24,7 +24,7 @@ class OrderMeal
     private $Meal;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderMeals")
+     * @ORM\ManyToOne(targetEntity=Order::class, inversedBy="orderMeals", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $OrderId;

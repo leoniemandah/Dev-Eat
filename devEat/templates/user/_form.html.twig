@@ -1,14 +1,14 @@
 {{ form_start(form) }}
     {{form_row(form.roles)}}
 
-    {{form_row(form.FirstName, {'label' : "Prénom",'attr' : {'placeholder' : 'Prénom ...' }})}}
+    {{form_row(form.FirstName, {'label' : " ",'attr' : {'placeholder' : 'Prénom ...' }})}}
 
-    {{form_row(form.LastName,{'label' : "Nom",'attr' : {'placeholder' : 'Nom ...' }})}}
-    {{form_row(form.Address,{'label' : "Adresse",'attr' : {'placeholder' : 'Adresse ...' }})}}
-    {{form_row(form.solde,{'label' : "Solde",'attr' : {'placeholder' : 'Solde ...' }})}}
-    {{form_row(form.email,{'label' : "Email",'attr' : {'placeholder' : 'Email ...' }})}}
-    {{form_row(form.password,{'label' : "Mot de passe",'attr' : {'placeholder' : 'Mot de passe ...' }})}}
-    {{form_row(form.Confirm_password,{'label' : "Confirmation mot de passe",'attr' : {'placeholder' : 'Répéter le mot de passe...' }})}}    
+    {{form_row(form.LastName,{'label' : " ",'attr' : {'placeholder' : 'Nom ...' }})}}
+    {{form_row(form.Address,{'label' : " ",'attr' : {'placeholder' : 'Adresse ...' }})}}
+    {{form_row(form.solde,{'label' : " ",'attr' : {'placeholder' : 'Solde ...' }})}}
+    {{form_row(form.email,{'label' : " ",'attr' : {'placeholder' : 'Email ...' }})}}
+    {{form_row(form.password,{'label' : " ",'attr' : {'placeholder' : 'Mot de passe ...' }})}}
+    {{form_row(form.Confirm_password,{'label' : " ",'attr' : {'placeholder' : 'Répéter le mot de passe...' }})}}    
     <div>
         <button style="background: #585455;color: white" class="btn">{{ button_label|default("S'inscrire") }}</button>
     </div>

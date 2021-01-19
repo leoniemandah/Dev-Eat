@@ -36,12 +36,12 @@ class Order
     private $Status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="orders", cascade={"persist", "remove"})
      */
     private $User;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderMeal::class, mappedBy="OrderId")
+     * @ORM\OneToMany(targetEntity=OrderMeal::class, mappedBy="OrderId", cascade={"persist", "remove"})
      */
     private $orderMeals;
 

@@ -33,7 +33,6 @@ class MealViewsController extends AbstractController
     {
         $meal = $mealRepository->findByCategory($category);
         return $this->render('meal_views/affiche.html.twig', [
-            'controller_name' => 'MealViewsController',
             'meals' => $meal,
         ]);
     }

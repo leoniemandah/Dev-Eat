@@ -35,7 +35,7 @@ class Restaurant
     private $User;
 
     /**
-     * @ORM\OneToMany(targetEntity=Meal::class, mappedBy="Restaurant")
+     * @ORM\OneToMany(targetEntity=Meal::class, mappedBy="Restaurant", cascade={"persist", "remove"})
      */
     private $meals;
 

@@ -162,7 +162,10 @@ class PanierController extends AbstractController
     
             $order->setOrderHour(new \DateTime('now'),'+1 hour');
     
-            $order->setDeliveryHour(date_modify(new \DateTime('now'),'+2 hour'));            
+            $order->setDeliveryHour(date_modify(new \DateTime('now'),'+2 hour'));
+            
+            $panierWithData = [];
+
             
             foreach($panier as $id => $quantity){
                 $panierWithData[] = [

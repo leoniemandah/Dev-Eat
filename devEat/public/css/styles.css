@@ -73,6 +73,7 @@ figure figcaption #form{
   border: none;
   border-radius: 10px;
   padding: 1vw;
+  padding-top: 2vw;
   text-align: center;
 
 }
@@ -244,11 +245,6 @@ main{
       border: solid 1px black;
       width: 23vw;
       padding: 5px;
-    }
-
-
-    form div label{
-      margin-right: 4vw;
     }
 
     #user_roles_0{

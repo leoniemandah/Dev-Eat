@@ -8,6 +8,7 @@ use App\Entity\Restaurant;
 use App\Entity\User;
 use App\Form\MealType;
 use App\Form\RestaurantType;
+use App\Repository\OrderRepository;
 use App\Repository\RestaurantRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,11 +29,13 @@ class AdminController extends AbstractController
     /**
      * @Route("/{id}/bord", name="admin")
      */
-    public function index(User $user, RestaurantRepository $restaurantRepository ): Response
+    public function index(User $user, RestaurantRepository $restaurantRepository, OrderRepository $orderRepository ): Response
     {
         return $this->render('admin/index.html.twig', [
         'user'=> $user,
-        'restaurant' => $restaurantRepository->findCount()
+        'restaurant' => $restaurantRepository->findCount(),
+        'Cours' => $orderRepository->findStatus(1),
+        'Terminer' => $orderRepository->findStatus(0)
             ]);
     }
 

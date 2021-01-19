@@ -40,12 +40,12 @@ class Meal
     private $Note;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="meals, nullable=true")
+     * @ORM\ManyToOne(targetEntity=Restaurant::class, inversedBy="meals, nullable=true" , cascade={"persist", "remove"})
      */
     private $Restaurant;
 
     /**
-     * @ORM\OneToMany(targetEntity=OrderMeal::class, mappedBy="Meal")
+     * @ORM\OneToMany(targetEntity=OrderMeal::class, mappedBy="Meal" , cascade={"persist", "remove"})
      */
     private $orderMeals;
 

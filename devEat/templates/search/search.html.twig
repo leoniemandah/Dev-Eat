@@ -1,11 +1,10 @@
 <div id="form">
 	{{ form_start(searchForm) }}
-	{{ form_row(searchForm.category, {'label': " ", 'attr': {'placeholder': 'mot clé...'}}) }}
-	<button class="btn btn-primary">rechercher</button>
+	{{ form_row(searchForm.category,  {'label': " ", 'attr': {'placeholder': 'De quoi avez-vous envie ?'}}) }}
+	<button style="border: none" class="btn btn-primary">rechercher</button>
 	{{ form_end(searchForm) }}
 
 </div>
-
 </br>
 	<div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
 		{% for meal in meals %}
@@ -23,9 +22,9 @@
 
 
 				<center>
-					<h5>{{ meal.name }}</h5>
+					<h4>{{ meal.name }}</h4>
 				</center>
-				<div class="flexButton">
+				<div class="flexButton mt-2 mb-4">
 					<a href="{{ path('meal_views', {'id':meal.id}) }}">
 						<button type="button" class="btn">Voir le détail du plat</button>
 					</a>
@@ -33,7 +32,6 @@
 
 			</div>
 			<br/>
-
 		{% endfor %}
         </div>
 

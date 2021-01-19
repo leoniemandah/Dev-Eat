@@ -14,15 +14,13 @@ class DevEatController extends AbstractController
     /**
      * @Route("/", name="dev_eat")
      */
-
-    public function index(Request $request,  MealRepository $repo): Response
+    public function index( string $meals = null , string $category = null, Request $request,  MealRepository $repo): Response
     {
+
         $searchForm = $this->createForm(SearchType::class);
         $searchForm->handleRequest($request);
-       
-        $meals = "";
 
-        $category = "";
+
         if ($searchForm->isSubmitted() && $searchForm->isValid()) {
 
 
@@ -32,7 +30,13 @@ class DevEatController extends AbstractController
             if ($meals == null) {
                 $this->addFlash('erreur', 'Aucune catégorie n\'a été trouvé.');
             }
+
+            return $this->render('meal_views/affiche.html.twig', [
+                'meals' => $meals,
+            ]);
+            
         }
+
         return $this->render('dev_eat/index.html.twig', [
             'meals' => $meals,
             'searchForm' => $searchForm->createView()

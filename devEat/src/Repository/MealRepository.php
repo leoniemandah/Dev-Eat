@@ -42,8 +42,8 @@ class MealRepository extends ServiceEntityRepository
 
     public function search($category)
     {
-        return $this->createQueryBuilder('Meal')
-            ->andWhere('Meal.Category LIKE :category')
+        return $this->createQueryBuilder('m')
+            ->andWhere('m.Category LIKE :category')
             ->setParameter('category', '%' . $category . '%')
             ->getQuery()
             ->execute();
