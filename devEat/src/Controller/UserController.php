@@ -50,13 +50,12 @@ class UserController extends AbstractController
         return $this->render('user/show.html.twig', [
             'user' => $user,
         ]);
-        
     }
 
     /**
      * @Route("/user/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, User $user , UserPasswordEncoderInterface $encoder): Response
+    public function edit(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
         $this->denyAccessUnlessGranted('EDIT', $user);
 
@@ -68,8 +67,7 @@ class UserController extends AbstractController
             $user->setPassword($hash);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('user_show', [ 'id' => $user->getId()]));
-
+            return $this->redirect($this->generateUrl('user_show', ['id' => $user->getId()]));
         }
 
         return $this->render('user/edit.html.twig', [
@@ -81,32 +79,27 @@ class UserController extends AbstractController
     /**
      * @Route("/user/{id}", name="user_delete", methods={"DELETE"})
      */
-    public function delete(UserRepository $userRepository,Request $request, User $user, int $id = 0): Response
+    public function delete(UserRepository $userRepository, Request $request, User $user, int $id = 0): Response
     {
         $this->denyAccessUnlessGranted('DELETE', $user);
 
-        $user =$userRepository->find($id);
+        $user = $userRepository->find($id);
 
         $User = $this->getUser()->getId();
-        if ($User == $id)
-        {
-          $session = $this->get('session');
-          $session = new Session();
-          
-          $session->invalidate();
+        if ($User == $id) {
+            $session = $this->get('session');
+            $session = new Session();
 
+            $session->invalidate();
         }
 
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
         }
 
-        
+
         return $this->redirectToRoute('dev_eat');
-    
     }
-
-
 }

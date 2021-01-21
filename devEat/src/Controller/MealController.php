@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class MealController extends AbstractController
 {
-    
+
     /**
      * @Route("/{id}/new", name="meal_new", methods={"GET","POST"})
      */
@@ -34,8 +34,8 @@ class MealController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /**@var UploadedFile  */
-            $file =$form->get('PictureFile')->getData();
-            $filename = md5(uniqid()) . '.' . $file->guessExtension() ;
+            $file = $form->get('PictureFile')->getData();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move(
                 $this->getParameter('upload_dir'),
                 $filename
@@ -46,12 +46,12 @@ class MealController extends AbstractController
             $entityManager->persist($meal);
             $entityManager->flush();
 
-           return $this->redirect($this->generateUrl('meal_show', [ 'id' => $meal->getId()]));
+            return $this->redirect($this->generateUrl('meal_show', ['id' => $meal->getId()]));
         }
 
         return $this->render('meal/new.html.twig', [
             'meal' => $meal,
-            'restaurant' =>$restaurant,
+            'restaurant' => $restaurant,
             'form' => $form->createView(),
         ]);
     }
@@ -83,8 +83,8 @@ class MealController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /**@var UploadedFile  */
-            $file =$form->get('PictureFile')->getData();
-            $filename = md5(uniqid()) . '.' . $file->guessExtension() ;
+            $file = $form->get('PictureFile')->getData();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move(
                 $this->getParameter('upload_dir'),
                 $filename
@@ -93,8 +93,7 @@ class MealController extends AbstractController
             $meal->setPicture($filename);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('meal_show', [ 'id' => $meal->getId()]));
-
+            return $this->redirect($this->generateUrl('meal_show', ['id' => $meal->getId()]));
         }
 
         return $this->render('meal/edit.html.twig', [
@@ -110,13 +109,12 @@ class MealController extends AbstractController
     {
         $this->denyAccessUnlessGranted('DELETE', $meal);
 
-        if ($this->isCsrfTokenValid('delete'.$meal->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $meal->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($meal);
             $entityManager->flush();
         }
 
-        return $this->redirect($this->generateUrl('crud_restaurant_show', [ 'id' => $meal->getRestaurant()->getId()]));
-
+        return $this->redirect($this->generateUrl('crud_restaurant_show', ['id' => $meal->getRestaurant()->getId()]));
     }
 }

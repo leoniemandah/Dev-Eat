@@ -4,34 +4,30 @@
 	<button style="border: none" class="btn btn-primary">rechercher</button>
 	{{ form_end(searchForm) }}
 
-</div>
-</br>
-	<div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
-		{% for meal in meals %}
+</div></br><div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
+{% for meal in meals %}
 
 
-			<div class="card mb-5" style="width: 24rem; border: none;">
+	<div class="card mb-5" style="width: 24rem; border: none;">
 
 
-				<figure>
-					<img src="{{ asset('uploads/' ~ meal.picture) }}" class="card-img-top" alt="">
-					<figcaption>
-						<h5>{{ meal.price }}€</h5>
-					</figcaption>
-				</figure>
+		<figure>
+			<img src="{{ asset('uploads/' ~ meal.picture) }}" class="card-img-top" alt="">
+			<figcaption>
+				<h5>{{ meal.price }}€</h5>
+			</figcaption>
+		</figure>
 
 
-				<center>
-					<h4>{{ meal.name }}</h4>
-				</center>
-				<div class="flexButton mt-2 mb-4">
-					<a href="{{ path('meal_views', {'id':meal.id}) }}">
-						<button type="button" class="btn">Voir le détail du plat</button>
-					</a>
-				</div>
+		<center>
+			<h4>{{ meal.name }}</h4>
+		</center>
+		<div class="flexButton mt-2 mb-4">
+			<a href="{{ path('meal_views', {'id':meal.id}) }}">
+				<button type="button" class="btn">Voir le détail du plat</button>
+			</a>
+		</div>
 
-			</div>
-			<br/>
-		{% endfor %}
-        </div>
-
+	</div>
+	<br/>
+{% endfor %}</div>

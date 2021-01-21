@@ -1,50 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin {% endblock %}
+{% block title %}Admin
+{% endblock %}
 
 {% block body %}
 
-<div class="mt-5 mb-5">
-    <h1  class="text-center" >Administrateur</h1>
-    <h5 class="text-right mt-n5">Revenue : {{user.solde}} €</h5>
-</div>
+	<div class="mt-5 mb-5">
+		<h1 class="text-center">Administrateur</h1>
+		<h5 class="text-right mt-n5">Revenue :
+			{{user.solde}}
+			€</h5>
+	</div>
 
-<div class="mb-5" style="display: flex;justify-content: center;">
-<div class="card" style="width: 18rem;">
-  <div class="text-center card-header">
-    Vous avez {{restaurant}} restaurants
-  </div>
-  <div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Commandes en cours : {{Cours}}</li>
-    <li class="list-group-item">Commandes passées : {{Terminer}}</li>
-  </ul>
-  </div>
-</div>
-</div>
+	<div class="mb-5" style="display: flex;justify-content: center;">
+		<div class="card" style="width: 18rem;">
+			<div class="text-center card-header">
+				Vous avez
+				{{restaurant}}
+				restaurants
+			</div>
+			<div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Commandes en cours :
+						{{Cours}}</li>
+					<li class="list-group-item">Commandes passées :
+						{{Terminer}}</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-    <div style="display: flex; justify-content: space-around;">
-    <div class="card" style="width: 40%" >
-    <h5 class="text-center card-header">Les restaurants</h5>
-    <div class="card-body">
-        <p class="card-text text-center">Accéder à toute la liste des restaurants </p>
-        <div style="display: flex; justify-content: center;">
-        <a style="background-color: #585455;color: white;" href="{{ path('admin_restaurants') }}" class="btn mb-3 mt-3">Voir les restaurants</a>
-        </div>
-    </div>
-    </div>
+	<div style="display: flex; justify-content: space-around;">
+		<div class="card" style="width: 40%">
+			<h5 class="text-center card-header">Les restaurants</h5>
+			<div class="card-body">
+				<p class="card-text text-center">Accéder à toute la liste des restaurants
+				</p>
+				<div style="display: flex; justify-content: center;">
+					<a style="background-color: #585455;color: white;" href="{{ path('admin_restaurants') }}" class="btn mb-3 mt-3">Voir les restaurants</a>
+				</div>
+			</div>
+		</div>
 
-    
 
-    <div class="card" style="width: 40%" >
-    <h5 class="text-center card-header">Les clients</h5>
-    <div class="card-body">
-        <p class="card-text text-center">Accéder à toute la liste des clients </p>
-        <div style="display: flex; justify-content: center;">
-        <a style="background-color: #585455;color: white;" href="{{ path('admin_users') }}" class="btn mb-3 mt-3">Voir les clients</a>
-        </div>
-    </div>
-    </div>
-    </div>
+		<div class="card" style="width: 40%">
+			<h5 class="text-center card-header">Les clients</h5>
+			<div class="card-body">
+				<p class="card-text text-center">Accéder à toute la liste des clients
+				</p>
+				<div style="display: flex; justify-content: center;">
+					<a style="background-color: #585455;color: white;" href="{{ path('admin_users') }}" class="btn mb-3 mt-3">Voir les clients</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}

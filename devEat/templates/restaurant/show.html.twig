@@ -1,78 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Restaurant{% endblock %}
+{% block title %}Restaurant
+{% endblock %}
 
 {% block body %}
-    <h1  class="text-center mt-5 mb-5">{{restaurant.name}}</h1>
+	<h1 class="text-center mt-5 mb-5">{{restaurant.name}}</h1>
 
-    <div class="mb-5"style="display: flex;justify-content: center;">
+	<div class="mb-5" style="display: flex;justify-content: center;">
 		<div class="card" style="width: 30rem;">
-            <img src="{{ asset('uploads/' ~ restaurant.logo) }}" class="card-img-top" alt="{{restaurant.name}}">
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Nom et prénom du propriétaire : {{restaurant.user.FirstName}} {{restaurant.user.LastName}}</li>
-                    <li class="list-group-item">Email : {{restaurant.user.email}}</li>
-                    <li class="list-group-item">Rôle : {{restaurant.user.roles ? restaurant.user.roles|json_encode : '' }}</li>
-                    <li class="list-group-item">Adresse : {{restaurant.user.Address}}</li>
-                    <li class="list-group-item">Solde : {{restaurant.user.solde}} €</li>
-                </ul> 
-                <div style="display: flex;flex-direction: column;align-items: center;">
-                {% if is_granted('ROLE_ADMIN')  %}
-                    <a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_restaurant_edit', {'id': restaurant.id}) }}">Modifier le restaurant</a>
-                    <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_user_edit', {'user': restaurant.user.id}) }}">Modifier le profil</a>
-                    {{ include('restaurant/_delete_form.html.twig') }}
-                {% else %}
-                    <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;"  href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">Modifier le restaurant</a>
-                {% endif %}
-                </div>
-            </div>   
-        </div>
-    </div>
+			<img src="{{ asset('uploads/' ~ restaurant.logo) }}" class="card-img-top" alt="{{restaurant.name}}">
+			<div class="card-body">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Nom et prénom du propriétaire :
+						{{restaurant.user.FirstName}}
+						{{restaurant.user.LastName}}</li>
+					<li class="list-group-item">Email :
+						{{restaurant.user.email}}</li>
+					<li class="list-group-item">Rôle :
+						{{restaurant.user.roles ? restaurant.user.roles|json_encode : '' }}</li>
+					<li class="list-group-item">Adresse :
+						{{restaurant.user.Address}}</li>
+					<li class="list-group-item">Solde :
+						{{restaurant.user.solde}}
+						€</li>
+				</ul>
+				<div style="display: flex;flex-direction: column;align-items: center;">
+					{% if is_granted('ROLE_ADMIN')  %}
+						<a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_restaurant_edit', {'id': restaurant.id}) }}">Modifier le restaurant</a>
+						<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_user_edit', {'user': restaurant.user.id}) }}">Modifier le profil</a>
+						{{ include('restaurant/_delete_form.html.twig') }}
+					{% else %}
+						<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">Modifier le restaurant</a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<div style="display: flex;justify-content:space-evenly;flex-wrap: wrap;">
 		{% for meal in restaurant.meals %}
 
 			<div class="card mb-5" style="width: 24rem; border: none;">
-             <img src="{{ asset('uploads/' ~ meal.picture) }}">
+				<img src="{{ asset('uploads/' ~ meal.picture) }}">
 				<div class="card-body">
 					<center>
-						<h5>{{ meal.name }} {{meal.Price}} €</h5>
-                          
-                        {% if is_granted('ROLE_ADMIN')  %}
-                        <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_meal_show', {'id': meal.id}) }}">Voir le plat</a>
-                        <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_meal_edit', {'id': meal.id}) }}">Modifier le plat</a>
-                        {{ include('meal/_delete_form.html.twig') }}
-                        {% else %}
-                             <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('meal_show', {'id': meal.id}) }}">Voir le plat</a>
-                        <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('meal_edit', {'id': meal.id}) }}">Modifier le plat</a>
-                        {{ include('meal/_delete_form.html.twig') }}
-                        {% endif %}
-                    </center>
+						<h5>{{ meal.name }}
+							{{meal.Price}}
+							€</h5>
+
+						{% if is_granted('ROLE_ADMIN')  %}
+							<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_meal_show', {'id': meal.id}) }}">Voir le plat</a>
+							<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_meal_edit', {'id': meal.id}) }}">Modifier le plat</a>
+							{{ include('meal/_delete_form.html.twig') }}
+						{% else %}
+							<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('meal_show', {'id': meal.id}) }}">Voir le plat</a>
+							<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('meal_edit', {'id': meal.id}) }}">Modifier le plat</a>
+							{{ include('meal/_delete_form.html.twig') }}
+						{% endif %}
+					</center>
 				</div>
 			</div>
 			<br/>
-             {% else %}
-           <p>Il n'y a aucun plat proposé pour le moment</p>
+		{% else %}
+			<p>Il n'y a aucun plat proposé pour le moment</p>
 		{% endfor %}
 	</div>
 
-    {% if is_granted('ROLE_ADMIN')  %}
-        <div style="display: flex;flex-direction: column;align-items: center;">
-            <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_restaurants') }}">Retour à la liste</a>
-        </div>
-    {% else %}
-    <div style="display: flex;flex-direction: column;align-items: center;">
-        <a style="background-color: #585455;color: white;" href="{{ path('meal_new', {'id': restaurant.id}) }}" class="btn mb-3 mt-3">Ajouter un plat</a>
-        <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('restaurant', {'id': app.user.id}) }}">Retourner au profil</a>
+	{% if is_granted('ROLE_ADMIN')  %}
+		<div style="display: flex;flex-direction: column;align-items: center;">
+			<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_restaurants') }}">Retour à la liste</a>
+		</div>
+	{% else %}
+		<div style="display: flex;flex-direction: column;align-items: center;">
+			<a style="background-color: #585455;color: white;" href="{{ path('meal_new', {'id': restaurant.id}) }}" class="btn mb-3 mt-3">Ajouter un plat</a>
+			<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('restaurant', {'id': app.user.id}) }}">Retourner au profil</a>
 
-    </div>
+		</div>
 
-    {% endif %}
+	{% endif %}
 
 {% endblock %}
-
-
-    
-
-  

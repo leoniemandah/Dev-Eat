@@ -18,8 +18,7 @@ class RestaurantType extends AbstractType
             ->add('LogoFile', FileType::class, [
                 'label' => "Choisissez une image",
                 'mapped' => false
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

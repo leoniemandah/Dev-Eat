@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter restaurant{% endblock %}
+{% block title %}Ajouter restaurant
+{% endblock %}
 
 {% block body %}
-    {% if user.restaurant.id is defined %}
-        <h1 class="text-center mt-5 mb-5">Vous avez déjà un restaurant {{user.restaurant.name}}</h1>
-        <a href="{{ path('restaurant', {'id': user.id}) }}">Accéder à votre profil</a>
+	{% if user.restaurant.id is defined %}
+		<h1 class="text-center mt-5 mb-5">Vous avez déjà un restaurant
+			{{user.restaurant.name}}</h1>
+		<a href="{{ path('restaurant', {'id': user.id}) }}">Accéder à votre profil</a>
 
-    {% else %}
-     <h1 class="text-center mt-5 mb-5" >Ajouter votre restaurant</h1>
-    {{ include('restaurant/_form.html.twig') }}
-    {% endif %}
+	{% else %}
+		<h1 class="text-center mt-5 mb-5">Ajouter votre restaurant</h1>
+		{{ include('restaurant/_form.html.twig') }}
+	{% endif %}
 
 {% endblock %}

@@ -17,12 +17,12 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="app_login")
      */
-    public function login(AccessDecisionManagerInterface $accessDecisionManager ,AuthenticationUtils $authenticationUtils): Response
+    public function login(AccessDecisionManagerInterface $accessDecisionManager, AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
-        
+
             return $this->redirectToRoute('dev_eat');
-         }
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -39,5 +39,4 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
-  
 }

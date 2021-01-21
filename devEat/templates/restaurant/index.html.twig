@@ -1,34 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Restaurants{% endblock %}
+{% block title %}Restaurants
+{% endblock %}
 
 {% block body %}
-    <h1 class="text-center mt-5 mb-5">Tous les restaurants</h1>
-    <div style="display: flex; justify-content: space-around;flex-wrap:wrap">
-        {% for restaurant in restaurants %}
-    
-        <div class="card border-dark mb-5" style="max-width: 23rem;">
-        <div class="card-header">Restaurant : {{restaurant.id}}</div>
-        <div class="card-body text-dark">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Nom et prénom du propriétaire : {{restaurant.user.FirstName}} {{restaurant.user.LastName}}</li>
-            <li class="list-group-item">Email : {{restaurant.user.email}}</li>
-            <li class="list-group-item">Rôle : {{restaurant.user.roles ? restaurant.user.roles|json_encode : '' }}</li>
-            <li class="list-group-item">Adresse : {{restaurant.user.Address}}</li>
-            <li class="list-group-item">Solde : {{restaurant.user.solde}} €</li>
-            <li class="list-group-item">Nom du restaurant : {{restaurant.name}}</li>
-        </ul>    
-        </div>   
-        <div style="display: flex;flex-direction: column;align-items: center;">
-        <a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_restaurant_show', {'id': restaurant.id}) }}">Voir le restaurant</a>
-        <a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_restaurant_edit', {'id': restaurant.id}) }}">Modifier le restaurant</a>   
-        <a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_user_edit', {'user': restaurant.user.id}) }}">Modifier le profil</a>
-        </div>
-        </div>
-         {% else %}
-           <p>Aucun restaurant n'est inscrit</p>
-        {% endfor %}
-        </div>
-       
+	<h1 class="text-center mt-5 mb-5">Tous les restaurants</h1>
+	<div style="display: flex; justify-content: space-around;flex-wrap:wrap">
+		{% for restaurant in restaurants %}
+
+			<div class="card border-dark mb-5" style="max-width: 23rem;">
+				<div class="card-header">Restaurant :
+					{{restaurant.id}}</div>
+				<div class="card-body text-dark">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Nom et prénom du propriétaire :
+							{{restaurant.user.FirstName}}
+							{{restaurant.user.LastName}}</li>
+						<li class="list-group-item">Email :
+							{{restaurant.user.email}}</li>
+						<li class="list-group-item">Rôle :
+							{{restaurant.user.roles ? restaurant.user.roles|json_encode : '' }}</li>
+						<li class="list-group-item">Adresse :
+							{{restaurant.user.Address}}</li>
+						<li class="list-group-item">Solde :
+							{{restaurant.user.solde}}
+							€</li>
+						<li class="list-group-item">Nom du restaurant :
+							{{restaurant.name}}</li>
+					</ul>
+				</div>
+				<div style="display: flex;flex-direction: column;align-items: center;">
+					<a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_restaurant_show', {'id': restaurant.id}) }}">Voir le restaurant</a>
+					<a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_restaurant_edit', {'id': restaurant.id}) }}">Modifier le restaurant</a>
+					<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_user_edit', {'user': restaurant.user.id}) }}">Modifier le profil</a>
+				</div>
+			</div>
+		{% else %}
+			<p>Aucun restaurant n'est inscrit</p>
+		{% endfor %}
+	</div>
+
 
 {% endblock %}

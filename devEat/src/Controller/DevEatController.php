@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use App\Form\SearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,7 @@ class DevEatController extends AbstractController
     /**
      * @Route("/", name="dev_eat")
      */
-    public function index( string $meals = null , string $category = null, Request $request,  MealRepository $repo): Response
+    public function index(string $meals = null, string $category = null, Request $request,  MealRepository $repo): Response
     {
 
         $searchForm = $this->createForm(SearchType::class);
@@ -26,7 +27,7 @@ class DevEatController extends AbstractController
 
             $meals = $repo->search($category);
 
-            
+
             if ($meals == null) {
                 $this->addFlash('erreur', 'Aucune catégorie n\'a été trouvé.');
             }
@@ -34,7 +35,6 @@ class DevEatController extends AbstractController
             return $this->render('meal_views/affiche.html.twig', [
                 'meals' => $meals,
             ]);
-            
         }
 
         return $this->render('dev_eat/index.html.twig', [
