@@ -5,33 +5,24 @@
 
 {% block body %}
 </br>
-	<div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
-		{% for meal in meals %}
-
-
-			<div class="card mb-5" style="width: 24rem; border: none;">
-
-
-				<figure>
-					<img src="{{ asset('uploads/' ~ meal.picture) }}" class="card-img-top" alt="">
-					<figcaption>
-						<h5>{{ meal.price }}€</h5>
-					</figcaption>
-				</figure>
-
-
-				<center>
-					<h5>{{ meal.name }}</h5>
-				</center>
-				<div class="flexButton">
-					<a href="{{ path('meal_views', {'id':meal.id}) }}">
-						<button type="button" class="btn">Voir le détail du plat</button>
-					</a>
-				</div>
-
+<div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
+	{% for meal in meals %}
+		<div class="card mb-5" style="width: 24rem; border: none;">
+			<figure>
+				<img src="{{ asset('uploads/' ~ meal.picture) }}" class="card-img-top" alt="">
+				<figcaption>
+					<h5>{{ meal.price }}€</h5>
+				</figcaption>
+			</figure>
+			<center>
+				<h5>{{ meal.name }}</h5>
+			</center>
+			<div class="flexButton">
+				<a href="{{ path('meal_views', {'id':meal.id}) }}">
+					<button type="button" class="btn">Voir le détail du plat</button>
+				</a>
 			</div>
-			<br/>
-
-		{% endfor %}
-        </div>
-	{% endblock %}
+		</div>
+		<br/>
+	{% endfor %}
+</div>{% endblock %}

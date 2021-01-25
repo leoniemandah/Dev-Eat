@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Meal;
 use App\Form\SearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +16,7 @@ class DevEatController extends AbstractController
     /**
      * @Route("/", name="dev_eat")
      */
+
     public function index(string $meals = null, MealRepository $mealRepository, string $category = null, Request $request,  MealRepository $repo): Response
     {
 
@@ -27,7 +29,6 @@ class DevEatController extends AbstractController
 
             $category = $searchForm->getData()['category'];
             $meals = $mealRepository->search($category);
-
 
             if ($meals == null) {
                 $this->addFlash('erreur', 'Aucune catégorie n\'a été trouvé.');

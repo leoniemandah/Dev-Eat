@@ -1,36 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Meal_views!{% endblock %}
+{% block title %}Meal_views!
+{% endblock %}
 
 {% block body %}
 
-<body>
+	<body>
 
-<div style="display: flex; justify-content: space-around;" class="mt-5">
+		<div style="display: flex; justify-content: space-around;" class="mt-5">
 
-<div>
-      <img style="width: 30vw;" src="{{ asset('uploads/' ~ meal.picture) }}">
-</div>
+			<div>
+				<img style="width: 30vw;" src="{{ asset('uploads/' ~ meal.picture) }}">
+			</div>
 
-    <div class="text-side">
-      <div class="text-side-inline">
-        <p class="text-side-title">{{ meal.name }}</p>
-         <p class="text-side-desc">Suprême de grouse d’écosse, farci à l’ancienne, mousseline de céleri, accompagnée de ses pommes maximes et une sauce au singel malt de la montagne de Reims.</p>
-        <p class="text-side-desc">Prix: {{ meal.price }}€</p>
+			<div class="text-side">
+				<div class="text-side-inline">
+					<p class="text-side-title">{{ meal.name }}</p>
+					<p class="text-side-desc">Suprême de grouse d’écosse, farci à l’ancienne, mousseline de céleri, accompagnée de ses pommes maximes et une sauce au singel malt de la montagne de Reims.</p>
+					<p class="text-side-desc">Prix:
+						{{ meal.price }}€</p>
 
-        {% if meal.Note is null %}
-                            <p class="text-side-desc">Note du plat : Le plat n'a pas été noté</p>
-                        {% else %}
-                            <p class="text-side-desc">Note du plat : {{ meal.Note }}</p>
-                        {% endif %}
+					{% if meal.Note is null %}
+						<p class="text-side-desc">Note du plat : Le plat n'a pas été noté</p>
+					{% else %}
+						<p class="text-side-desc">Note du plat :
+							{{ meal.Note }}</p>
+					{% endif %}
 
-        <a href="{{ path('panier_add', {'id' : meal.id }) }}">
-          <div class="text-side-button">Acheter</div>
-        </a>
-      </div>
-    </div>
-</div>
+					<a href="{{ path('panier_add', {'id' : meal.id }) }}">
+						<div class="text-side-button">Acheter</div>
+					</a>
+				</div>
+			</div>
+		</div>
 
-</body>
+	</body>
 
 {% endblock %}

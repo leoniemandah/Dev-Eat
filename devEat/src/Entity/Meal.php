@@ -168,6 +168,4 @@ class Meal
 
         return $this;
     }
-
-
 }

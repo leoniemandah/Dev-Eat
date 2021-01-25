@@ -12,7 +12,7 @@ class RestaurantVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, ['EDIT', 'VIEW','DELETE'])
+        return in_array($attribute, ['EDIT', 'VIEW', 'DELETE'])
             && $subject instanceof \App\Entity\Restaurant;
     }
 
@@ -24,14 +24,14 @@ class RestaurantVoter extends Voter
             return false;
         }
 
-        
+
         switch ($attribute) {
             case 'EDIT':
-              return $restaurant->getUser()->getId() == $user->getId();
+                return $restaurant->getUser()->getId() == $user->getId();
                 break;
             case 'DELETE':
                 return $restaurant->getUser()->getId() == $user->getId();
-              break;    
+                break;
             case 'VIEW':
                 return $restaurant->getUser()->getId() == $user->getId();
                 break;

@@ -1,28 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Clients !{% endblock %}
+{% block title %}Clients !
+{% endblock %}
 
 {% block body %}
 
-<h1  class="text-center mt-5 mb-5" >Tous les clients</h1>
+	<h1 class="text-center mt-5 mb-5">Tous les clients</h1>
 
-<div style="display: flex; flex-wrap : wrap; justify-content : space-around">
-{% for client in clients %}
-    <div class="card border-dark mb-5" style="max-width: 23rem;">
-  <div class="card-header">{{client.id}} : {{client.FirstName}} {{client.LastName}}</div>
-  <div class="card-body text-dark">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Email : {{client.email}}</li>
-    <li class="list-group-item">Rôle : {{client.roles ? client.roles|json_encode : '' }}</li>
-    <li class="list-group-item">Adresse : {{client.Address}}</li>
-    <li class="list-group-item">Solde : {{client.solde}} €</li>
-  </ul>    
-</div>
-<div style="display: flex; justify-content: space-around;">
-<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;"  href="{{ path('admin_user_show', {'user': client.id}) }}">Voir</a>
-<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_user_edit', {'user': client.id}) }}">Modifier</a>
-</div>
-</div>
-{% endfor %}
-</div>
+	<div style="display: flex; flex-wrap : wrap; justify-content : space-around">
+		{% for client in clients %}
+			<div class="card border-dark mb-5" style="max-width: 23rem;">
+				<div class="card-header">{{client.id}}
+					:
+					{{client.FirstName}}
+					{{client.LastName}}</div>
+				<div class="card-body text-dark">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Email :
+							{{client.email}}</li>
+						<li class="list-group-item">Rôle :
+							{{client.roles ? client.roles|json_encode : '' }}</li>
+						<li class="list-group-item">Adresse :
+							{{client.Address}}</li>
+						<li class="list-group-item">Solde :
+							{{client.solde}}
+							€</li>
+					</ul>
+				</div>
+				<div style="display: flex; justify-content: space-around;">
+					<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_user_show', {'user': client.id}) }}">Voir</a>
+					<a class="btn mb-3 mt-3" style="background-color: #585455;color: white;" href="{{ path('admin_user_edit', {'user': client.id}) }}">Modifier</a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 {% endblock %}

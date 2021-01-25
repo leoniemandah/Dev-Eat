@@ -22,21 +22,21 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
 /**
-* @Route("/admin")
-**/
+ * @Route("/admin")
+ **/
 class AdminController extends AbstractController
 {
     /**
      * @Route("/{id}/bord", name="admin")
      */
-    public function index(User $user, RestaurantRepository $restaurantRepository, OrderRepository $orderRepository ): Response
+    public function index(User $user, RestaurantRepository $restaurantRepository, OrderRepository $orderRepository): Response
     {
         return $this->render('admin/index.html.twig', [
-        'user'=> $user,
-        'restaurant' => $restaurantRepository->findCount(),
-        'Cours' => $orderRepository->findStatus(1),
-        'Terminer' => $orderRepository->findStatus(0)
-            ]);
+            'user' => $user,
+            'restaurant' => $restaurantRepository->findCount(),
+            'Cours' => $orderRepository->findStatus(1),
+            'Terminer' => $orderRepository->findStatus(0)
+        ]);
     }
 
     /**
@@ -44,7 +44,7 @@ class AdminController extends AbstractController
      */
     public function newRestaurant(Request $request): Response
 
-    
+
     {
         $restaurant = new Restaurant();
         $form = $this->createForm(RestaurantType::class, $restaurant);
@@ -65,7 +65,7 @@ class AdminController extends AbstractController
     }
 
 
-     /**
+    /**
      * @Route("/restaurants", name="admin_restaurants", methods={"GET"})
      */
     public function restaurants(RestaurantRepository $restaurantRepository): Response
@@ -75,7 +75,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-     /**
+    /**
      * @Route("/restaurant/{id}", name="admin_restaurant_show", methods={"GET"})
      */
     public function showRestaurant(Restaurant $restaurant): Response
@@ -85,7 +85,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-     /**
+    /**
      * @Route("/restaurant/{id}/edit", name="admin_restaurant_edit", methods={"GET","POST"})
      */
     public function editRestaurant(Request $request, Restaurant $restaurant): Response
@@ -96,13 +96,13 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             /**@var UploadedFile  */
-            $file =$form->get('LogoFile')->getData();
-            $filename = md5(uniqid()) . '.' . $file->guessExtension() ;
+            $file = $form->get('LogoFile')->getData();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move(
                 $this->getParameter('upload_dir'),
                 $filename
             );
-            
+
             $restaurant->setLogo($filename);
 
             $this->getDoctrine()->getManager()->flush();
@@ -121,7 +121,7 @@ class AdminController extends AbstractController
      */
     public function deleteRestaurant(Request $request, Restaurant $restaurant): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$restaurant->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $restaurant->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($restaurant);
             $entityManager->flush();
@@ -130,7 +130,7 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_restaurants');
     }
 
-     /**
+    /**
      * @Route("/users", name="admin_users", methods={"GET"})
      */
     public function User(UserRepository $userRepository): Response
@@ -180,7 +180,7 @@ class AdminController extends AbstractController
     /**
      * @Route("/user/{user}/edit", name="admin_user_edit", methods={"GET","POST"}, requirements={"id"="\d+"})
      */
-    public function editUser(Request $request, User $user ,UserPasswordEncoderInterface $encoder): Response
+    public function editUser(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
 
     {
         $form = $this->createForm(UserType::class, $user);
@@ -203,27 +203,25 @@ class AdminController extends AbstractController
     /**
      * @Route("/user/{user}", name="admin_user_delete", methods={"DELETE"}, requirements={"id"="\d+"})
      */
-    public function deleteUser(UserRepository $userRepository , Request $request, User $user, int $id = 0): Response
+    public function deleteUser(UserRepository $userRepository, Request $request, User $user, int $id = 0): Response
     {
 
-        
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($user);
             $entityManager->flush();
         }
-        
-        $user =$userRepository->find($id);
+
+        $user = $userRepository->find($id);
 
         $User = $this->getUser()->getId();
-        if ($User == $id)
-        {
-          $session = $this->get('session');
-          $session = new Session();
-          
-          $session->invalidate();
+        if ($User == $id) {
+            $session = $this->get('session');
+            $session = new Session();
 
-        }        
+            $session->invalidate();
+        }
         return $this->redirectToRoute('admin_users');
     }
 
@@ -249,8 +247,8 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /**@var UploadedFile  */
-            $file =$form->get('PictureFile')->getData();
-            $filename = md5(uniqid()) . '.' . $file->guessExtension() ;
+            $file = $form->get('PictureFile')->getData();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move(
                 $this->getParameter('upload_dir'),
                 $filename
@@ -274,7 +272,7 @@ class AdminController extends AbstractController
      */
     public function delete(Request $request, Meal $meal): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$meal->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $meal->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($meal);
             $entityManager->flush();

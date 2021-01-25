@@ -17,17 +17,23 @@ class UserType extends AbstractType
             ->add('email')
             ->add('password', PasswordType::class)
             ->add('FirstName')
-            ->add('Confirm_password',PasswordType::class)
+            ->add('Confirm_password', PasswordType::class)
             ->add('LastName')
             ->add('solde')
             ->add('Address')
-            ->add('roles',ChoiceType::class,
-            array('choices' => array(
-                    'Utilisateur' => 'ROLE_USER',
-                    'Restaurateur' => 'ROLE_RESTAURANT'),
-                    'multiple'=>true,
-                    'expanded'=>true,
-                    'label' => 'Qui êtes vous ?'));
+            ->add(
+                'roles',
+                ChoiceType::class,
+                array(
+                    'choices' => array(
+                        'Utilisateur' => 'ROLE_USER',
+                        'Restaurateur' => 'ROLE_RESTAURANT'
+                    ),
+                    'multiple' => true,
+                    'expanded' => true,
+                    'label' => 'Qui êtes vous ?'
+                )
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

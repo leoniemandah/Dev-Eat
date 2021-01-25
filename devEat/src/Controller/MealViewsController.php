@@ -25,8 +25,8 @@ class MealViewsController extends AbstractController
 
 
 
-    
-     /**
+
+    /**
      * @Route("/meal/views/category/{category}", name="meal")
      */
     public function categoryMeal(MealRepository $mealRepository, string $category): Response
@@ -36,13 +36,4 @@ class MealViewsController extends AbstractController
             'meals' => $meal,
         ]);
     }
-
-    
-
-
-
-    
 }
-
-
-     

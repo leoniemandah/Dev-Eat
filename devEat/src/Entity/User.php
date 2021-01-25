@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * message = "Cet email est déjà utilisé"
  * )
  *
- */ 
+ */
 class User implements UserInterface
 {
     /**
@@ -45,8 +45,8 @@ class User implements UserInterface
      * @Assert\Length(min="8", minMessage="Votre mot de passe dois faire minimum 8 caractère")
      * @Assert\EqualTo(propertyPath="confirm_password", message="Votre mot de passe n'est pas le même")
      */
-    private $password;  
-   
+    private $password;
+
     /**
      * @Assert\EqualTo(propertyPath="password", message="Votre mot de passe n'est pas le même")
      * @var [type]

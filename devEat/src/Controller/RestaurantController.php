@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Restaurant;
 use App\Entity\User;
 use App\Form\RestaurantType;
-use App\Repository\MealRepository;
+use App\Repository\OrderRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -19,20 +19,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class RestaurantController extends AbstractController
 {
 
-    
-
-    
     /**
-    * @Route("/user/{id}/profil", name="restaurant")
-    */
-    public function index( User $user): Response
+     * @Route("/user/{id}/profil", name="restaurant")
+     */
+    public function index(User $user, OrderRepository $orderRepository): Response
     {
-        
+    
         $this->denyAccessUnlessGranted('VIEW', $user);
 
+      
         return $this->render('restaurant/restaurant.html.twig', [
             'user' => $user,
-
         ]);
     }
 
@@ -41,33 +38,31 @@ class RestaurantController extends AbstractController
      */
     public function new(int $id = 0, Request $request, UserRepository $userRepository): Response
     {
-    
-            $restaurant = new Restaurant();
-            $form = $this->createForm(RestaurantType::class, $restaurant);
-            $form->handleRequest($request);
-            $user = $userRepository->find($id);
-            $this->denyAccessUnlessGranted('VIEW', $user);
 
-            $restaurant->setUser($user);
-    
-            if ($form->isSubmitted() && $form->isValid()) {
-                /**@var UploadedFile  */
-                $file =$form->get('LogoFile')->getData();
-                $filename = md5(uniqid()) . '.' . $file->guessExtension() ;
-                $file->move(
-                    $this->getParameter('upload_dir'),
-                    $filename
-                );
-                $restaurant->setLogo($filename);
-                $entityManager = $this->getDoctrine()->getManager();
-                $entityManager->persist($restaurant);
-                $entityManager->flush();
-    
-                return $this->redirect($this->generateUrl('crud_restaurant_show', [ 'id' => $restaurant->getId()]));
+        $restaurant = new Restaurant();
+        $form = $this->createForm(RestaurantType::class, $restaurant);
+        $form->handleRequest($request);
+        $user = $userRepository->find($id);
+        $this->denyAccessUnlessGranted('VIEW', $user);
 
-                
-            }
-        
+        $restaurant->setUser($user);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            /**@var UploadedFile  */
+            $file = $form->get('LogoFile')->getData();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move(
+                $this->getParameter('upload_dir'),
+                $filename
+            );
+            $restaurant->setLogo($filename);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($restaurant);
+            $entityManager->flush();
+
+            return $this->redirect($this->generateUrl('crud_restaurant_show', ['id' => $restaurant->getId()]));
+        }
+
 
         return $this->render('restaurant/new.html.twig', [
             'restaurant' => $restaurant,
@@ -100,8 +95,8 @@ class RestaurantController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /**@var UploadedFile  */
-            $file =$form->get('LogoFile')->getData();
-            $filename = md5(uniqid()) . '.' . $file->guessExtension() ;
+            $file = $form->get('LogoFile')->getData();
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
             $file->move(
                 $this->getParameter('upload_dir'),
                 $filename
@@ -110,8 +105,7 @@ class RestaurantController extends AbstractController
             $restaurant->setLogo($filename);
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirect($this->generateUrl('crud_restaurant_show', [ 'id' => $restaurant->getId()]));
-
+            return $this->redirect($this->generateUrl('crud_restaurant_show', ['id' => $restaurant->getId()]));
         }
 
         return $this->render('restaurant/edit.html.twig', [
@@ -120,6 +114,11 @@ class RestaurantController extends AbstractController
         ]);
     }
 
-    
+    /**
+     * @Route("/{id}/status", name="restaurant_edit", methods={"GET","POST"})
+     */
 
+    public function status(Restaurant $restaurant)
+     {
+     }
 }
