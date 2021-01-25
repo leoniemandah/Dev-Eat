@@ -1,35 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}Profil
+{% endblock %}
 
 {% block body %}
-  {% if is_granted('ROLE_ADMIN')  %}
-    <h1 class="text-center mt-5 mb-5" >Utilisateur {{user.id}}</h1>
-    {% else %}
-    <h1 class="text-center mt-5 mb-5" >Votre profil</h1>
-    {% endif %}
+	{% if is_granted('ROLE_ADMIN')  %}
+		<h1 class="text-center mt-5 mb-5">Utilisateur
+			{{user.id}}</h1>
+	{% else %}
+		<h1 class="text-center mt-5 mb-5">Votre profil</h1>
+	{% endif %}
 
-    <div style="display: flex; justify-content: center;">
-        <div class="card border-dark mb-5" style="max-width: 23rem;">
-        <div class="card-header">{{user.FirstName}} {{user.LastName}}</div>
-        <div class="card-body text-dark">
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Email : {{user.email}}</li>
-            <li class="list-group-item">Rôle : {{user.roles ? user.roles|json_encode : '' }}</li>
-            <li class="list-group-item">Adresse : {{user.Address}}</li>
-            <li class="list-group-item">Solde : {{user.solde}} €</li>
-        </ul>    
-        </div>
-        <div style="display: flex;flex-direction: column;align-items: center;">
-        {{ include('user/_delete_form.html.twig') }}
-          {% if is_granted('ROLE_ADMIN')  %}
-        <a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_user_edit', {'user': user.id}) }}">Modifier</a>
-        <a class="btn mb-2 mt-2" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_users') }}">Voir la liste</a>
-        {% else %}
-            <a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;"  href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
-        {% endif %}
-        </div>
-        </div>
-        </div>
+	<div style="display: flex; justify-content: center;">
+		<div class="card border-dark mb-5" style="max-width: 23rem;">
+			<div class="card-header">{{user.FirstName}}
+				{{user.LastName}}</div>
+			<div class="card-body text-dark">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Email :
+						{{user.email}}</li>
+					<li class="list-group-item">Rôle :
+						{{user.roles ? user.roles|json_encode : '' }}</li>
+					<li class="list-group-item">Adresse :
+						{{user.Address}}</li>
+					<li class="list-group-item">Solde :
+						{{user.solde}}
+						€</li>
+				</ul>
+			</div>
+			<div style="display: flex;flex-direction: column;align-items: center;">
+				{{ include('user/_delete_form.html.twig') }}
+				{% if is_granted('ROLE_ADMIN')  %}
+					<a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_user_edit', {'user': user.id}) }}">Modifier</a>
+					<a class="btn mb-2 mt-2" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('admin_users') }}">Voir la liste</a>
+				{% else %}
+					<a class="btn mb-2 mt-3" style="width: fit-content; background-color: #585455;color: white;" href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
 {% endblock %}
-                   

@@ -1,126 +1,119 @@
-body{
-  background-color: #EBEDE4;
+body {
+    background-color: #EBEDE4;
 }
 
-#top{
+#top {
     background-color: #585455;
     padding-top: 0;
     padding-bottom: 0;
 }
 
-a{
-  text-decoration: none;
-  color: white !important;
-}
-
-
-a :hover{
-  color: white !important;
-  text-decoration: none;
-}
-
-#contain{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.container{
-  background-color: #ece9e9;
-  color: rgb(46, 45, 45);
-  font-family:inherit; ;
-  border-radius:10px ;
-  padding-bottom: 10px;
-}
-
-.jumbotron{
-  background-color: rgb(197, 195, 195);
-}
-
-#flex{
-  align-items: center !important;
-  justify-content: space-around  !important;
-  display:flex  !important;
-  flex-wrap: wrap  !important;
-  width: 100%;
-}
-
-#restaurant{
-  justify-content: space-around;
-}
-
-#meal{
-  justify-content: space-around;
-  flex-wrap: wrap;
-}
-
-nav img{
-  width: 7vw;
-}
-
-footer img{
-  width: 7vw;
-}
-
-
-
-figure figcaption #form{
-  position:absolute;
-  background:rgba(43, 42, 42, 0.9);
-  width: 30vw;
-  top:35vw;
-  left:35vw;
-  border: none;
-  border-radius: 10px;
-  padding: 1vw;
-  padding-top: 2vw;
-  text-align: center;
-
-}
-
-figure figcaption #content{
-  position: absolute;
-  width: 70px;
-  top: 13vw;
-  right:3px;
-  padding-bottom: 5px; 
-  border-radius: 10px;
-  color:white ;
-  font-size: medium;
-  padding-top: 20px;
-  text-align: center;
-
-}
-
-figure figcaption h5{
-  position: absolute;
-  width: 70px;
-  background-color:rgb(32, 31, 31, 0.9);
-  top: 13vw;
-  right:3px;
-  padding-bottom: 5px; 
-  border-radius: 10px;
-  color:white ;
-  font-size: medium;
-  padding-top: 5px;
-  text-align: center;
-
-}
-
-
-
-button{
-  background: #585455 !important;
-  color: white  !important;
-}
-
-button :hover{
-  color: white  !important;
-}
-
-nav a{
+a {
+    text-decoration: none;
     color: white !important;
-    text-decoration:none;
+}
+
+a :hover {
+    color: white !important;
+    text-decoration: none;
+}
+
+#contain {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.container {
+    background-color: #ece9e9;
+    color: rgb(46, 45, 45);
+    font-family: inherit;
+    ;
+    border-radius: 10px;
+    padding-bottom: 10px;
+}
+
+.jumbotron {
+    background-color: rgb(197, 195, 195);
+}
+
+#flex {
+    align-items: center !important;
+    justify-content: space-around !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    width: 100%;
+}
+
+#restaurant {
+    justify-content: space-around;
+}
+
+#meal {
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+nav img {
+    width: 7vw;
+}
+
+footer img {
+    width: 7vw;
+}
+
+figure figcaption #form {
+    position: absolute;
+    background: rgba(43, 42, 42, 0.9);
+    width: 30vw;
+    top: 35vw;
+    left: 35vw;
+    border: none;
+    border-radius: 10px;
+    padding: 1vw;
+    padding-top: 2vw;
+    text-align: center;
+}
+
+figure figcaption #content {
+    position: absolute;
+    width: 70px;
+    top: 13vw;
+    right: 3px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    color: white;
+    font-size: medium;
+    padding-top: 20px;
+    text-align: center;
+}
+
+figure figcaption h5 {
+    position: absolute;
+    width: 70px;
+    background-color: rgb(32, 31, 31, 0.9);
+    top: 13vw;
+    right: 3px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    color: white;
+    font-size: medium;
+    padding-top: 5px;
+    text-align: center;
+}
+
+button {
+    background: #585455 !important;
+    color: white !important;
+}
+
+button :hover {
+    color: white !important;
+}
+
+nav a {
+    color: white !important;
+    text-decoration: none;
 }
 
 footer {
@@ -132,9 +125,9 @@ footer div a {
     color: white;
 }
 
-footer a :hover{
-  color: white !important;
-  text-decoration: none;
+footer a :hover {
+    color: white !important;
+    text-decoration: none;
 }
 
 .footer-copyright {
@@ -142,16 +135,19 @@ footer a :hover{
 }
 
 img {
- width: 100%;
- height: auto;
+    width: 100%;
+    height: auto;
 }
 
-main{
+main {
     display: row;
     flex-wrap: wrap;
-    justify-content: space-between;  
+    justify-content: space-between;
 }
 
+#search_category {
+    width: 15vw;
+}
 
 .styled {
     border: 0;
@@ -160,223 +156,217 @@ main{
     font-size: 1rem;
     text-align: center;
     color: #fff;
-    text-shadow: 1px 1px 1px  #585455;
+    text-shadow: 1px 1px 1px #585455;
     border-radius: 10px;
-    background-color:  #585455;
-    background-image: linear-gradient(to top left,
-                                      rgba(0, 0, 0, .2),
-                                      rgba(0, 0, 0, .2) 30%,
-                                      rgba(0, 0, 0, 0));
-    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6),
-                inset -2px -2px 3px  #585455;
+    background-color: #585455;
+    background-image: linear-gradient(to top left, rgba(0, 0, 0, .2), rgba(0, 0, 0, .2) 30%, rgba(0, 0, 0, 0));
+    box-shadow: inset 2px 2px 3px rgba(255, 255, 255, .6), inset -2px -2px 3px #585455;
 }
 
 .styled:hover {
-    background-color:  #585455;
+    background-color: #585455;
 }
 
 .styled:active {
-    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6),
-                inset 2px 2px 3px  #585455;
+    box-shadow: inset -2px -2px 3px rgba(255, 255, 255, .6), inset 2px 2px 3px #585455;
 }
 
-
-    
-    .texte-image{
-      display:flex;
-      flex-wrap:wrap;
-      overflow:hidden;
-      margin-left:auto;
-      margin-right:auto;
-      justify-content:center;
-      align-items:center;
-      margin-bottom: -3vw;
-    }
-    
-    .image-texte{
-      display:flex;
-      flex-wrap:wrap;
-      overflow:hidden;
-      margin-left:auto;
-      margin-right:auto;
-      justify-content:center;
-      align-items:center;
-      margin-bottom: -8vw;
-    
-      
-    }
-    
-    
-    .texte{
-      width:50%;
-      padding:40px;
-      margin-top: -6vw;
-      text-align: center;
-      font-size: 18px;
-    }
-    
-    .flexButton{
-      justify-content: center;
-      display: flex;
-      margin-top: 3vw;
-    }
-    
-    .flexButton button{
-          background-color:  #585455;
-          color: white;
-    }
-
-    .image{
-      width:50%;
-      height:500px;
-      text-align:center;
-      margin:auto;
-      padding:40px;
-    }
-
-    form div{
-      display: flex;
-      justify-content: center;
-      margin-bottom: 2vw;
+.texte-image {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -3vw;
 }
 
-    form div input{
-      border-radius: 10px;
-      border: solid 1px black;
-      width: 23vw;
-      padding: 5px;
-    }
+.image-texte {
+    display: flex;
+    flex-wrap: wrap;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -8vw;
+}
 
-    #user_roles_0{
-      width: 5vw;
-      margin-top: 6px;
-    }
+.texte {
+    width: 50%;
+    padding: 40px;
+    margin-top: -6vw;
+    text-align: center;
+    font-size: 18px;
+}
 
-    #user_roles_1{
-      width: 5vw;
-      margin-top: 6px;
+.flexButton {
+    justify-content: center;
+    display: flex;
+    margin-top: 3vw;
+}
 
-    }
+.flexButton button {
+    background-color: #585455;
+    color: white;
+}
 
+.image {
+    width: 50%;
+    height: 500px;
+    text-align: center;
+    margin: auto;
+    padding: 40px;
+}
 
+form div {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2vw;
+}
 
+form div input {
+    border-radius: 10px;
+    border: solid 1px black;
+    width: 23vw;
+    padding: 5px;
+}
 
-    body {
-      font-family: "Montserrat";
-      margin: 0;
-      padding: 0;
-      margin: auto; /* On centre le contenu à l'intérieur, mais le thème le fera ou le container, c'est pour simuler ici */
-      
-     
-    }
+#user_roles_0 {
+    width: 5vw;
+    margin-top: 6px;
+}
 
-    
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-    
+#user_roles_1 {
+    width: 5vw;
+    margin-top: 6px;
+}
+
+body {
+    font-family: "Montserrat";
+    margin: 0;
+    padding: 0;
+    margin: auto;
+    /* On centre le contenu à l'intérieur, mais le thème le fera ou le container, c'est pour simuler ici */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.image-with-text {
+    display: flex;
+    /* L'élément devient flexible permettant l'utilistion des propriétés flexibles */
+    justify-content: space-between;
+    /* Les deux éléments (texte, image) seront séparés d'un espace égal, remplissant le cadre */
+    align-items: center;
+    /* Les deux éléments seront verticalement alignés */
+    width: 100%;
+    /* Prendre toute la largeur disponible */
+    max-width: 1200px;
+    /* Au delà, le rendu sera peu esthéthique. */
+    margin: auto;
+    /* Centrer le contenu horizonntalement */
+}
+
+.image-side {
+    display: flex;
+    /* L'élément devient flexible permettant l'utilistion des propriétés flexibles */
+    width: auto;
+    padding-top: 20px;
+    height: 300px;
+    padding-left: 80px;
+}
+
+.text-side {
+    display: flex;
+    /* L'élément devient flexible permettant l'utilistion des propriétés flexibles */
+    width: calc( 50% - 2em);
+    /* L'élément prendra 50% du conteneur - 5em de largeur, laissant un espace bon entre texte et image */
+}
+
+.text-side-inline {
+    display: inline-block;
+    /* Permet le retour à la ligne automatique entre les éléments */
+    padding-right: 120px;
+    padding-top: 20px;
+}
+
+.text-side-title {
+    color: #202022;
+    /* Le texte du titre sera coloré en bleu océan */
+    font-weight: bold;
+    /* Le texte du titre sera gras */
+    font-size: 20px;
+    /* Le texte fera 20px de taille, un peu plus grand que la description */
+}
+
+.text-side-desc {
+    color: #58595b;
+    /* Le texte sera grisé */
+    font-size: 16px;
+    /* Le texte fera 16px de taille, un peu plus petit que le titre */
+}
+
+.text-side-button {
+    transition: 0.3s all;
+    /* Pour un hover smooth */
+    background: #585455;
+    /* Couleur de fond bleutée */
+    padding: 15px 30px;
+    /* Le bouton englobe son contenu avec 15px d'espacement vertical, et 30px horizontal. */
+    color: #fff;
+    /* Le texte contenu sera blanc */
+    width: max-content;
+    /* La largeur du bouton sera le texte + l'espacement */
+    max-width: 100%;
+    /* On évite les débordements si le texte est trop long, limite à 100% */
+    border-radius: 10px;
+}
+
+.text-side-button:hover {
+    transition: 0.3s all;
+    /* Pour un hover smooth */
+    transform: translate(10px);
+    /* Léger décalage pour le style */
+    opacity: 0.8;
+    /* Léger flash pour montrer que l'élément est sélectionné */
+}
+
+@media (max-width: 768px) {
     .image-with-text {
-      display: flex; /* L'élément devient flexible permettant l'utilistion des propriétés flexibles */
-      justify-content: space-between; /* Les deux éléments (texte, image) seront séparés d'un espace égal, remplissant le cadre */
-      align-items: center; /* Les deux éléments seront verticalement alignés */
-      width: 100%; /* Prendre toute la largeur disponible */
-      max-width: 1200px; /* Au delà, le rendu sera peu esthéthique. */
-      margin: auto; /* Centrer le contenu horizonntalement */
-    }
-    
-    .image-side {
-      display: flex; /* L'élément devient flexible permettant l'utilistion des propriétés flexibles */
-      width: auto;
-     padding-top: 20px;
-     height: 300px;
-     padding-left: 80px;
-    }
-    
-    .text-side {
-      display: flex; /* L'élément devient flexible permettant l'utilistion des propriétés flexibles */
-      width: calc(
-        50% - 2em
-          ); /* L'élément prendra 50% du conteneur - 5em de largeur, laissant un espace bon entre texte et image */
-    }
-    
-    .text-side-inline {
-      display: inline-block; /* Permet le retour à la ligne automatique entre les éléments */
-      padding-right: 120px;
-      padding-top: 20px;
-      
-      
-    }
-    
-    .text-side-title {
-      color: #202022; /* Le texte du titre sera coloré en bleu océan */
-      font-weight: bold; /* Le texte du titre sera gras */
-      font-size: 20px; /* Le texte fera 20px de taille, un peu plus grand que la description */
-    }
-    
-    .text-side-desc {
-      color: #58595b; /* Le texte sera grisé */
-      font-size: 16px; /* Le texte fera 16px de taille, un peu plus petit que le titre */
-    }
-    
-    .text-side-button {
-      transition: 0.3s all; /* Pour un hover smooth */
-      background: #585455; /* Couleur de fond bleutée */
-      padding: 15px 30px; /* Le bouton englobe son contenu avec 15px d'espacement vertical, et 30px horizontal. */
-      color: #fff; /* Le texte contenu sera blanc */
-      width: max-content; /* La largeur du bouton sera le texte + l'espacement */
-      max-width: 100%; /* On évite les débordements si le texte est trop long, limite à 100% */
-      border-radius:10px;
-    }
-    
-    .text-side-button:hover {
-      transition: 0.3s all; /* Pour un hover smooth */
-      transform: translate(10px); /* Léger décalage pour le style */
-      opacity: 0.8; /* Léger flash pour montrer que l'élément est sélectionné */
-    }
-    
-    
-    @media (max-width: 768px) {
-      .image-with-text {
         justify-content: center;
         width: auto;
         flex-direction: column;
         padding: 30px;
-      }
-    
-      .image-side {
-        width: auto;
-      }
-    
-      .image-side img {
-        max-width: 100%;
-      }
-      
-      .text-side {
-        width: auto;
-      }
     }
-    
+    .image-side {
+        width: auto;
+    }
+    .image-side img {
+        max-width: 100%;
+    }
+    .text-side {
+        width: auto;
+    }
+}
 
 
+/* **************  POUR SMARTPHONE  ********************* */
 
-
-    
-
-    
-    /* **************  POUR SMARTPHONE  ********************* */
-    @media screen and (max-width:767.98px){
-      .texte, .image{
-       width:100%; 
-       height: auto;
-       
-      }
-     .image-texte{
-        flex-direction:column-reverse;
-       } 
-       
-       figure figcaption input{
+@media screen and (max-width:767.98px) {
+    .texte,
+    .image {
+        width: 100%;
+        height: auto;
+    }
+    .image-texte {
+        flex-direction: column-reverse;
+    }
+    figure figcaption input {
         width: 60vw;
         left: 20%;
-      }
     }
+}
