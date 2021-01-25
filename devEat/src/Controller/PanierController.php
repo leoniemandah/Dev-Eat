@@ -121,18 +121,20 @@ class PanierController extends AbstractController
     /**
      * @Route("/{id}/order" , name="panier_order")
      */
+
     public function order(SessionInterface $session, MealRepository $mealRepository, User $user, MailerInterface $mailer, UserRepository $userRepository)
-    {
+
+{
         $order = new Order;
 
         $panier = $session->get('panier', []);
 
         $panierWithData = [];
 
-
         foreach ($panier as $id => $quantity) {
             $panierWithData[] = [
                 'meal' => $meal = $mealRepository->find($id),
+
                 'quantity' => $quantity,
             ];
         }
@@ -150,10 +152,15 @@ class PanierController extends AbstractController
         $totalResto = $total;
         $total += 2.50;
 
+
         $soldeUser = $user->getSolde();
         $soldeResto = $restaurant->getSolde();
         $soldeAdmin = $admin->getSolde();
 
+
+        $soldeUser = $user->getSolde();
+        $soldeResto = $restaurant->getSolde();
+        $soldeAdmin = $admin->getSolde();
 
 
         if ($user->getSolde() >= $total) {

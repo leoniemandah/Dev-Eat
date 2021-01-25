@@ -23,23 +23,15 @@ class OrderRepository extends ServiceEntityRepository
     public function findStatus($status)
     {
         $qb = $this->createQueryBuilder('o');
-            $qb ->select($qb->expr()->count('o'))
-                ->where('o.Status = :status')
-                ->setParameter('status', $status);
+        $qb->select($qb->expr()->count('o'))
+            ->where('o.Status = :status')
+            ->setParameter('status', $status);
 
-            return (int) $qb->getQuery()->getSingleScalarResult();
-
+        return (int) $qb->getQuery()->getSingleScalarResult();
     }
 
-    /*
-    public function findOneBySomeField($value): ?Order
-    {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+ 
+
+    
+
 }

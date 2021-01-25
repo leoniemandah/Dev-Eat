@@ -16,14 +16,12 @@ class MealType extends AbstractType
     {
         $builder
             ->add('Name', TextType::class, ['label' => 'Nom'])
-            ->add('Category',TextType::class,['label' =>'Catégorie'] )
+            ->add('Category', TextType::class, ['label' => 'Catégorie'])
             ->add('PictureFile', FileType::class, [
                 'label' => "Choisissez une image",
                 'mapped' => false
             ])
-            ->add('Price', NumberType::class,['label' => 'Prix'] )
-            
-        ;
+            ->add('Price', NumberType::class, ['label' => 'Prix']);
     }
 
     public function configureOptions(OptionsResolver $resolver)

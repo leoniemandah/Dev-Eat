@@ -13,16 +13,16 @@ class RestaurantsViewsController extends AbstractController
     /**
      * @Route("/restaurants/views", name="restaurants_views")
      */
-    public function index (RestaurantRepository $repo): Response
-    {   
+    public function index(RestaurantRepository $repo): Response
+    {
         $restaurants = $repo->findAll();
         return $this->render('restaurants_views/index.html.twig', [
-            'restaurants'=> $restaurants
+            'restaurants' => $restaurants
         ]);
     }
 
 
-     /**
+    /**
      * @Route("/restaurants/{id}", name="restaurant_show")
      */
     public function show(Restaurant $restaurant)

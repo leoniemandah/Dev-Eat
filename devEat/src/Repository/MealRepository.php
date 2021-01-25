@@ -23,11 +23,10 @@ class MealRepository extends ServiceEntityRepository
     public function findByRestaurantId()
     {
         return $this->createQueryBuilder('m')
-            ->innerJoin( 'm.Restaurant', 'Restaurant', 'WITH', 'Restaurant.id = m.Restaurant')
+            ->innerJoin('m.Restaurant', 'Restaurant', 'WITH', 'Restaurant.id = m.Restaurant')
             ->Where('m.Restaurant = Restaurant.id')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
     public function findByCategory($name)
@@ -48,5 +47,4 @@ class MealRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
-   
 }

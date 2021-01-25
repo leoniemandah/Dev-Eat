@@ -1,46 +1,44 @@
 <nav id="top" class="navbar navbar-expand-lg navbar-light ">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <ul id="flex" class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('dev_eat') }}">Accueil</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ path('restaurants_views') }}">Restaurants</a>
-        </li>
-          <a  href="{{ path('dev_eat') }}">
-            <img src="{{ asset('image/' ~ 'logo.png') }}" alt="logo"></img>
-          </a>
-        {% if not app.user %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('user_new') }}">Inscription</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
-          </li>
-         {% else %}
-            {% if is_granted('ROLE_ADMIN')  %}
-              <a href="{{ path('admin',{'id': app.user.id}) }}">Tableau de bord</a>
-            {% elseif is_granted('ROLE_RESTAURANT')  %}
-              {% if app.user.restaurant.id is defined %}
-                <a href="{{ path('restaurant', {'id': app.user.id}) }}">Profil</a>
-                {% else %}
-                  <a href="{{ path('restaurant_new', {'id': app.user.id}) }}">Ajouter votre restaurant</a>
-              {% endif %}
-              {% else %}  
-                <a href="{{ path('user_show', {'id': app.user.id}) }}">Profil</a>
-                <a href="{{path('panier')}}"><img style="width: 25px;" src="{{ asset('image/' ~ 'shopping-cart.png') }}" alt="panier"></img></a>
-            {% endif %}
-            <li class="nav-item">
-              <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
-            </li>       
-          {% endif %}
+	<div class="container-fluid">
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+			<ul id="flex" class="navbar-nav me-auto mb-2 mb-lg-0">
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('dev_eat') }}">Accueil</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('restaurants_views') }}">Restaurants</a>
+				</li>
+				<a href="{{ path('dev_eat') }}">
+					<img src="{{ asset('image/' ~ 'logo.png') }}" alt="logo"></img>
+			</a>
+			{% if not app.user %}
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('user_new') }}">Inscription</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+				</li>
+			{% else %}
+				{% if is_granted('ROLE_ADMIN')  %}
+					<a href="{{ path('admin',{'id': app.user.id}) }}">Tableau de bord</a>
+				{% elseif is_granted('ROLE_RESTAURANT')  %}
+					{% if app.user.restaurant.id is defined %}
+						<a href="{{ path('restaurant', {'id': app.user.id}) }}">Profil</a>
+					{% else %}
+						<a href="{{ path('restaurant_new', {'id': app.user.id}) }}">Ajouter votre restaurant</a>
+					{% endif %}
+				{% else %}
+					<a href="{{ path('user_show', {'id': app.user.id}) }}">Profil</a>
+					<a href="{{path('panier')}}"><img style="width: 25px;" src="{{ asset('image/' ~ 'shopping-cart.png') }}" alt="panier"></img>
+				</a>
+			{% endif %}
+			<li class="nav-item">
+				<a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+			</li>
+		{% endif %}
 
-    </div>
-  </div>
-</nav>
-
-
+	</div>
+</div></nav>

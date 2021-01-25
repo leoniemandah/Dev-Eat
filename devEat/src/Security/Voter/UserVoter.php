@@ -12,7 +12,7 @@ class UserVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute,['EDIT', 'VIEW','DELETE'])
+        return in_array($attribute, ['EDIT', 'VIEW', 'DELETE'])
             && $subject instanceof \App\Entity\User;
     }
 
@@ -36,7 +36,7 @@ class UserVoter extends Voter
             case 'DELETE':
                 return $userid->getId() == $user->getId();
 
-                break;    
+                break;
         }
 
         return false;

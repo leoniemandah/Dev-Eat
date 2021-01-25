@@ -3,19 +3,20 @@
 {% block title %}Restaurants{{restaurant.name}}
 {% endblock %}
 {% block body %}
-{% for label, messages in app.flashes(['success', 'danger']) %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }}" role="alert">
-            {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+	{% for label, messages in app.flashes(['success', 'danger']) %}
+		{% for message in messages %}
+			<div class="alert alert-{{ label }}" role="alert">
+				{{ message }}
+			</div>
+		{% endfor %}
+	{% endfor %}
 	<div class="jumbotron jumbotron-fluid">
-		<center><div class="container">
-			<h1 class="display-4">{{restaurant.name}}</h1>
-			<p class="lead">Découvrez nos plats</p>
-		</br>
-		<h5>{{restaurant.user.address}}</h5>
+		<center>
+			<div class="container">
+				<h1 class="display-4">{{restaurant.name}}</h1>
+				<p class="lead">Découvrez nos plats</p>
+			</br>
+			<h5>{{restaurant.user.address}}</h5>
 		</div>
 	</center>
 </div>
@@ -27,26 +28,27 @@
 		<div class="card mb-5" style="width: 24rem; border: none;">
 
 
-		<figure>
-			<img src="{{ asset('uploads/' ~ meal.picture) }}"  class="card-img-top" alt="">
-			<figcaption>
-				<h5>{{ meal.price }}€</h5>
-			</figcaption>
-		</figure>
+			<figure>
+				<img src="{{ asset('uploads/' ~ meal.picture) }}" class="card-img-top" alt="">
+				<figcaption>
+					<h5>{{ meal.price }}€</h5>
+				</figcaption>
+			</figure>
 
 
-				<center>
-					<h5>{{ meal.name }}</h5>
-				</center>
-				<div style="display: flex;flex-direction: column;align-items: center;">
-					<a href="{{ path('meal_views', {'id':meal.id}) }}">
-						<button type="button" class="btn mb-4">Voir le détail du plat</button>
-					</a>
-					<a href="{{ path('panier_add', {'id' : meal.id }) }}">	<button type="button" class="btn mb-4">Acheter</button></a>
-				</div>
-
+			<center>
+				<h5>{{ meal.name }}</h5>
+			</center>
+			<div style="display: flex;flex-direction: column;align-items: center;">
+				<a href="{{ path('meal_views', {'id':meal.id}) }}">
+					<button type="button" class="btn mb-4">Voir le détail du plat</button>
+				</a>
+				<a href="{{ path('panier_add', {'id' : meal.id }) }}">
+					<button type="button" class="btn mb-4">Acheter</button>
+				</a>
 			</div>
+
+		</div>
 		<br/>
 	{% endfor %}
-</div>
-{% endblock %}
+</div>{% endblock %}

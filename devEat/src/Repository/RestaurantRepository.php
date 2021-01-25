@@ -23,9 +23,7 @@ class RestaurantRepository extends ServiceEntityRepository
     public function findCount()
     {
         $qb = $this->createQueryBuilder('r');
-            $qb ->select($qb->expr()->count('r'));
-            return (int) $qb->getQuery()->getSingleScalarResult();
-
+        $qb->select($qb->expr()->count('r'));
+        return (int) $qb->getQuery()->getSingleScalarResult();
     }
-
 }
