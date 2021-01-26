@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tous nos plats!{% endblock %}
+{% block title %}Tous nos plats!
+{% endblock %}
 
 {% block body %}
-<h1 class="text-center m-5">Tous les plats</h1>
+	<h1 class="text-center m-5">Tous les plats</h1>
 	<div style="display: flex;justify-content: space-around;flex-wrap: wrap;">
+
+
 		{% for meal in meals %}
-
-
-			<div class="card pb-5" style="width: 24rem; border: none;">
+			<div class="card pb-5 mb-5" style="width: 24rem; border: none;">
 
 
 				<figure>
@@ -29,7 +30,5 @@
 				</div>
 
 			</div>
-		</div>
-		<br/>
 	{% endfor %}
 </div>{% endblock %}
