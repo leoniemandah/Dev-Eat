@@ -113,6 +113,7 @@ class MealController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($meal);
             $entityManager->flush();
+
         }
 
         return $this->redirect($this->generateUrl('crud_restaurant_show', ['id' => $meal->getRestaurant()->getId()]));

@@ -114,11 +114,5 @@ class RestaurantController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/{id}/status", name="restaurant_edit", methods={"GET","POST"})
-     */
-
-    public function status(Restaurant $restaurant)
-     {
-     }
+    
 }
