@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Restaurants{{restaurant.name}}
+{% block title %}Restaurants {{restaurant.name}}
 {% endblock %}
 {% block body %}
 	{% for label, messages in app.flashes(['success', 'danger']) %}
